@@ -4,7 +4,7 @@ linkTitle: RPC
 
 # Semantic conventions for RPC
 
-**Status**: [Development][DocumentStatus]
+**Status**: [Release Candidate][DocumentStatus], unless otherwise specified
 
 This document defines semantic conventions for remote procedure calls (RPC)
 , also called "remote method invocations" (RMI).
@@ -46,10 +46,6 @@ Technology specific semantic conventions are defined for the following RPC syste
 * [Dubbo](dubbo.md): Semantic Conventions for *Apache Dubbo*.
 * [gRPC](grpc.md): Semantic Conventions for *gRPC*.
 * [JSON-RPC](json-rpc.md): Semantic Conventions for *JSON-RPC*.
-
-Specifications defined by maintainers of RPC systems:
-
-* [gRPC](https://github.com/grpc/proposal/blob/master/A66-otel-stats.md): Semantic Conventions for *gRPC*.
 
 For help migrating from non-stable to stable conventions, see [the migration guide](../non-normative/rpc-migration.md).
 
