@@ -160,7 +160,7 @@ groups:
     stability: development
     brief: "The number of log attributes dropped by processors or exporters."
     instrument: counter
-    unit: "{log_record}"
+    unit: "{log_attribute}"
 
   - id: metric.otel.sdk.processor.log.queue.size
     type: metric
