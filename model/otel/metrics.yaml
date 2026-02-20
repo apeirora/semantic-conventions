@@ -140,6 +140,28 @@ groups:
     instrument: counter
     unit: "{log_record}"
 
+  - id: metric.otel.sdk.log.dropped
+    type: metric
+    metric_name: otel.sdk.log.dropped
+    annotations:
+      code_generation:
+        metric_value_type: int
+    stability: development
+    brief: "The number of logs dropped by processors or exporters."
+    instrument: counter
+    unit: "{log_record}"
+
+  - id: metric.otel.sdk.log.attribute.dropped
+    type: metric
+    metric_name: otel.sdk.log.attribute.dropped
+    annotations:
+      code_generation:
+        metric_value_type: int
+    stability: development
+    brief: "The number of log attributes dropped by processors or exporters."
+    instrument: counter
+    unit: "{log_attribute}"
+
   - id: metric.otel.sdk.processor.log.queue.size
     type: metric
     metric_name: otel.sdk.processor.log.queue.size
