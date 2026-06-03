@@ -1,0 +1,317 @@
+groups:
+  # ---------------------------------------------------------------------------
+  # audit.record — identity and deduplication
+  # ---------------------------------------------------------------------------
+  - id: registry.audit.record
+    type: attribute_group
+    display_name: Audit Record Attributes
+    brief: >
+      Attributes that uniquely identify and version an audit record.
+    attributes:
+      - id: audit.record.id
+        type: string
+        stability: development
+        brief: >
+          A stable, globally unique identifier for this audit record.
+        note: >
+          The SDK MUST auto-generate a UUID v4 when the caller omits this field.
+          The value MUST remain identical across all retries of the same record.
+          Records with the same `audit.record.id` and identical payload hash are
+          treated as idempotent duplicates by compliant sinks.
+        examples:
+          - "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+
+      - id: audit.schema.version
+        type: string
+        stability: development
+        brief: >
+          The version of the audit semantic conventions schema used by this record.
+        note: >
+          Follows semantic versioning (MAJOR.MINOR.PATCH). Receivers MAY use this
+          value to select an appropriate validation schema.
+        examples: ["1.0.0", "1.2.0"]
+
+  # ---------------------------------------------------------------------------
+  # audit.actor — who performed the action
+  # ---------------------------------------------------------------------------
+  - id: registry.audit.actor
+    type: attribute_group
+    display_name: Audit Actor Attributes
+    brief: >
+      Attributes that identify the principal (human user, service, or automated
+      system component) that initiated the auditable action.
+    attributes:
+      - id: audit.actor.id
+        type: string
+        stability: development
+        brief: >
+          The stable identifier of the actor that performed the action.
+        note: >
+          This SHOULD be an opaque, durable identifier (e.g. a user-UUID, service
+          account name, or IAM principal ARN) that remains stable across sessions.
+          Avoid using mutable display names or email addresses as the primary id.
+        examples:
+          - "u8472"
+          - "svc-deployer"
+          - "arn:aws:iam::123456789012:role/DeployRole"
+
+      - id: audit.actor.type
+        type:
+          members:
+            - id: user
+              value: "user"
+              brief: A human user authenticated to the system.
+              stability: development
+            - id: service
+              value: "service"
+              brief: An automated service or daemon acting on its own behalf.
+              stability: development
+            - id: system
+              value: "system"
+              brief: >
+                An internal system component (scheduler, GC, background job) that
+                is not externally authenticated.
+              stability: development
+        stability: development
+        brief: >
+          The category of principal that performed the action.
+        examples: ["user", "service", "system"]
+
+      - id: audit.actor.name
+        type: string
+        stability: development
+        brief: >
+          A human-readable display name or username of the actor.
+        note: >
+          MAY be a login name, email address, or display name. This value is
+          informational only; use `audit.actor.id` for stable identity correlation.
+        examples: ["alice", "alice@example.com", "Alice Smith"]
+
+  # ---------------------------------------------------------------------------
+  # audit.action — what was done
+  # ---------------------------------------------------------------------------
+  - id: registry.audit.action
+    type: attribute_group
+    display_name: Audit Action Attributes
+    brief: >
+      Attributes that describe the operation performed by the actor.
+    attributes:
+      - id: audit.action
+        type: string
+        stability: development
+        brief: >
+          The auditable operation that was performed.
+        note: >
+          SHOULD be an uppercase verb from a controlled vocabulary where possible.
+          Well-known values include `LOGIN`, `LOGOUT`, `READ`, `CREATE`, `UPDATE`,
+          `DELETE`, `GRANT`, `REVOKE`, `EXPORT`, `IMPORT`, `EXECUTE`, `APPROVE`,
+          `REJECT`. Custom values MAY be used when none of the well-known values
+          applies, but SHOULD be documented in the producing service's changelog.
+        examples:
+          - "LOGIN"
+          - "DELETE"
+          - "GRANT"
+          - "CONFIG_CHANGE"
+
+      - id: audit.outcome
+        type:
+          members:
+            - id: success
+              value: "success"
+              brief: >
+                The action completed successfully and produced its intended effect.
+              stability: development
+            - id: failure
+              value: "failure"
+              brief: >
+                The action was attempted but did not complete successfully (e.g.
+                authorization denied, validation error, resource not found).
+              stability: development
+            - id: unknown
+              value: "unknown"
+              brief: >
+                The outcome could not be determined at the time the event was
+                emitted, for example because the operation is async.
+              stability: development
+        stability: development
+        brief: >
+          The result of the auditable action.
+        examples: ["success", "failure", "unknown"]
+
+  # ---------------------------------------------------------------------------
+  # audit.target — the resource acted upon
+  # ---------------------------------------------------------------------------
+  - id: registry.audit.target
+    type: attribute_group
+    display_name: Audit Target Attributes
+    brief: >
+      Attributes that describe the resource or object that was acted upon.
+    attributes:
+      - id: audit.target.id
+        type: string
+        stability: development
+        brief: >
+          The stable identifier of the resource that was the target of the action.
+        note: >
+          SHOULD be the primary key, ARN, URI, or equivalent durable identifier
+          of the resource. When acting on a collection rather than a single
+          resource, this MAY contain the collection identifier.
+        examples:
+          - "document-42"
+          - "arn:aws:s3:::my-bucket/key"
+          - "/api/v1/users/9f81"
+
+      - id: audit.target.type
+        type: string
+        stability: development
+        brief: >
+          The type or resource kind of the target.
+        note: >
+          SHOULD use a fully-qualified type where available (e.g. a Kubernetes
+          GroupVersionResource or an IAM resource type). For domain-specific types
+          a short qualified name MAY be used (e.g. `finance.invoice`).
+        examples:
+          - "User"
+          - "apps/v1/Deployment"
+          - "finance.invoice"
+
+      - id: audit.target.name
+        type: string
+        stability: development
+        brief: >
+          A human-readable name or label of the target resource.
+        note: >
+          Informational only. Use `audit.target.id` for stable identity correlation.
+        examples:
+          - "production-deploy"
+          - "Q1-invoice-7734"
+
+  # ---------------------------------------------------------------------------
+  # audit.source — network / origin of the action
+  # ---------------------------------------------------------------------------
+  - id: registry.audit.source
+    type: attribute_group
+    display_name: Audit Source Attributes
+    brief: >
+      Attributes that describe the network origin or calling context of the action.
+    attributes:
+      - id: audit.source.id
+        type: string
+        stability: development
+        brief: >
+          A stable identifier for the source system or network endpoint that
+          originated the action.
+        note: >
+          MAY be an IP address, a device UUID, or a service mesh endpoint id.
+          Prefer stable identifiers (device UUID) over ephemeral ones (IP address)
+          when both are available.
+        examples:
+          - "192.0.2.42"
+          - "device-uuid-abcd1234"
+
+      - id: audit.source.type
+        type: string
+        stability: development
+        brief: >
+          The category of origin that initiated the action.
+        note: >
+          Well-known values: `ip_address`, `device`, `service_mesh_node`.
+          Custom values MAY be used.
+        examples:
+          - "ip_address"
+          - "device"
+          - "service_mesh_node"
+
+  # ---------------------------------------------------------------------------
+  # audit.integrity — cryptographic tamper-evidence
+  # ---------------------------------------------------------------------------
+  - id: registry.audit.integrity
+    type: attribute_group
+    display_name: Audit Integrity Attributes
+    brief: >
+      Attributes that provide cryptographic evidence that the audit record has
+      not been tampered with since it was emitted.
+    attributes:
+      - id: audit.integrity.value
+        type: string
+        stability: development
+        brief: >
+          Base64url-encoded cryptographic signature or MAC covering this record.
+        note: >
+          The exact input to the signing / MAC operation MUST be the canonical
+          serialisation of the `AuditRecord` with `audit.integrity.value` absent.
+          `audit.integrity.algorithm` MUST be set on the emitting Resource whenever
+          this attribute is present.
+        examples:
+          - "SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+
+      - id: audit.integrity.algorithm
+        type: string
+        stability: development
+        brief: >
+          The algorithm used to compute `audit.integrity.value`.
+        note: >
+          MUST be set as a Resource attribute whenever `audit.integrity.value` is
+          present on any record emitted by this resource. Use a JWA identifier
+          (RFC 7518) for asymmetric signatures (e.g. `ES256`, `RS256`, `EdDSA`) or
+          an IANA MAC Algorithm identifier for symmetric MACs (e.g. `HMAC-SHA256`).
+        examples:
+          - "ES256"
+          - "EdDSA"
+          - "HMAC-SHA256"
+
+      - id: audit.integrity.certificate
+        type: string
+        stability: development
+        brief: >
+          A reference to the key or certificate used for `audit.integrity.value`.
+        note: >
+          Acceptable forms (in order of preference): a Key ID / `kid` (JOSE header
+          parameter), a DER-encoded X.509 certificate Base64url-encoded, an X.509
+          certificate fingerprint (SHA-256 hex), or an Issuer + Serial Number pair.
+          Receivers MUST NOT use this field alone for trust decisions; key
+          validation MUST be performed out-of-band.
+        examples:
+          - "key-2024-01"
+          - "SHA256:ab12cd34..."
+
+  # ---------------------------------------------------------------------------
+  # audit.sequence — hash-chain ordering
+  # ---------------------------------------------------------------------------
+  - id: registry.audit.sequence
+    type: attribute_group
+    display_name: Audit Sequence Attributes
+    brief: >
+      Attributes that link audit records into an ordered, tamper-evident chain
+      within a single stream.
+    attributes:
+      - id: audit.sequence.number
+        type: int
+        stability: development
+        brief: >
+          A monotonically increasing counter assigned to each record within a
+          single audit stream.
+        note: >
+          Compliant sinks and Tier-2 Collectors MUST verify that consecutive
+          records within the same stream have strictly increasing sequence numbers.
+          Gaps MUST trigger a gap-detection warning and a security event log entry.
+          The counter SHOULD start at 1 and increment by 1 per emitted record, but
+          implementations MAY use a larger step if records can be emitted
+          concurrently from multiple threads.
+        examples: [1, 42, 1000001]
+
+      - id: audit.prev.hash
+        type: string
+        stability: development
+        brief: >
+          SHA-256 hex digest of the `IntegrityHash` field of the immediately
+          preceding record in the same audit stream.
+        note: >
+          Including the previous record's sink-acknowledged hash in the current
+          record creates an append-only hash chain. Any retroactive modification
+          of a record is detectable by re-verifying the chain. Set to the all-zeros
+          string `"0000000000000000000000000000000000000000000000000000000000000000"`
+          for the first record in a stream.
+        examples:
+          - "a3f1c2e4b5d6a7f8e9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2"
+          - "0000000000000000000000000000000000000000000000000000000000000000"
