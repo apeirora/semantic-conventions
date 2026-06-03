@@ -266,6 +266,13 @@ groups:
         brief: >
           A reference to the key or certificate used for `audit.integrity.value`.
         note: >
+          MUST be set as a Resource attribute (together with
+          `audit.integrity.algorithm`) whenever `audit.integrity.value` is present
+          on any record emitted by this resource. Because a service instance uses a
+          single signing key for its entire lifetime, both `audit.integrity.algorithm`
+          and `audit.integrity.certificate` are constant across all records from the
+          same resource and therefore belong on the Resource, not on individual records.
+
           Acceptable forms (in order of preference): a Key ID / `kid` (JOSE header
           parameter), a DER-encoded X.509 certificate Base64url-encoded, an X.509
           certificate fingerprint (SHA-256 hex), or an Issuer + Serial Number pair.
