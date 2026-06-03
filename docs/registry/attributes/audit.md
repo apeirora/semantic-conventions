@@ -169,10 +169,10 @@ Attributes that link audit records into an ordered, tamper-evident chain within 
 
 | Key | Stability | Value Type | Description | Example Values |
 | --- | --- | --- | --- | --- |
-| <a id="audit-prev-hash" href="#audit-prev-hash">`audit.prev.hash`</a> | ![Development](https://img.shields.io/badge/-development-blue) | string | SHA-256 hex digest of the `IntegrityHash` field of the immediately preceding record in the same audit stream. [1] | `a3f1c2e4b5d6a7f8e9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2`; `0000000000000000000000000000000000000000000000000000000000000000` |
+| <a id="audit-prev-hash" href="#audit-prev-hash">`audit.sequence.prev_hash`</a> | ![Development](https://img.shields.io/badge/-development-blue) | string | SHA-256 hex digest of the `IntegrityHash` field of the immediately preceding record in the same audit stream. [1] | `a3f1c2e4b5d6a7f8e9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2`; `0000000000000000000000000000000000000000000000000000000000000000` |
 | <a id="audit-sequence-number" href="#audit-sequence-number">`audit.sequence.number`</a> | ![Development](https://img.shields.io/badge/-development-blue) | int | A monotonically increasing counter assigned to each record within a single audit stream. [2] | `1`; `42`; `1000001` |
 
-**[1] `audit.prev.hash`:** Including the previous record's sink-acknowledged hash in the current
+**[1] `audit.sequence.prev_hash`:** Including the previous record's sink-acknowledged hash in the current
 record creates an append-only hash chain. Any retroactive modification
 of a record is detectable by re-verifying the chain. Set to the all-zeros
 string `"0000000000000000000000000000000000000000000000000000000000000000"`
