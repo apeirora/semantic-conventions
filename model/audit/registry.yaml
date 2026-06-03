@@ -307,7 +307,7 @@ groups:
           concurrently from multiple threads.
         examples: [1, 42, 1000001]
 
-      - id: audit.prev.hash
+      - id: audit.sequence.prev_hash
         type: string
         stability: development
         brief: >

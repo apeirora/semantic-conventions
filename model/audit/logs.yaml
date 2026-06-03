@@ -85,8 +85,8 @@ groups:
         requirement_level:
           recommended: >
             When the emitting service maintains a monotonic per-stream counter.
-            Required when `audit.prev.hash` is present.
-      - ref: audit.prev.hash
+            Required when `audit.sequence.prev_hash` is present.
+      - ref: audit.sequence.prev_hash
         requirement_level:
           recommended: >
             When the emitting service implements a hash chain for tamper
