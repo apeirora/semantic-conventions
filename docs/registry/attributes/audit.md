@@ -143,11 +143,18 @@ present on any record emitted by this resource. Use a JWA identifier
 (RFC 7518) for asymmetric signatures (e.g. `ES256`, `RS256`, `EdDSA`) or
 an IANA MAC Algorithm identifier for symmetric MACs (e.g. `HMAC-SHA256`).
 
-**[2] `audit.integrity.certificate`:** Acceptable forms (in order of preference): a Key ID / `kid` (JOSE header
+**[2] `audit.integrity.certificate`:** MUST be set as a Resource attribute together with `audit.integrity.algorithm`
+whenever `audit.integrity.value` is present on any record emitted by this
+resource. Because a service instance uses a single signing key for its entire
+lifetime, both `audit.integrity.algorithm` and `audit.integrity.certificate`
+are constant across all records from the same resource and therefore belong on
+the Resource, not on individual records.
+
+Acceptable forms (in order of preference): a Key ID / `kid` (JOSE header
 parameter), a DER-encoded X.509 certificate Base64url-encoded, an X.509
 certificate fingerprint (SHA-256 hex), or an Issuer + Serial Number pair.
-Receivers MUST NOT use this field alone for trust decisions; key
-validation MUST be performed out-of-band.
+Receivers MUST NOT use this field alone for trust decisions; key validation
+MUST be performed out-of-band.
 
 **[3] `audit.integrity.value`:** The exact input to the signing / MAC operation MUST be the canonical
 serialisation of the `AuditRecord` with `audit.integrity.value` absent.
