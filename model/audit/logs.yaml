@@ -1,0 +1,93 @@
+groups:
+  # ---------------------------------------------------------------------------
+  # Base audit record attribute group — shared mandatory + optional attributes
+  # referenced by all audit event definitions.
+  # ---------------------------------------------------------------------------
+  - id: audit.record
+    type: attribute_group
+    brief: >
+      Attributes for an audit record emitted through the OTel Audit Logging
+      signal. An AuditRecord IS a LogRecord; all audit-specific data is carried
+      as attributes in the `audit.*` namespace.
+    note: >
+      The five mandatory attributes (`audit.record.id`, `audit.actor.id`,
+      `audit.actor.type`, `audit.action`, `audit.outcome`) MUST be present on
+      every audit record. The SDK MUST auto-generate `audit.record.id` if the
+      caller omits it. Absence of any other mandatory attribute is a hard error;
+      the SDK MUST NOT silently drop the record.
+
+      The LogRecord fields used by audit records are:
+
+      * `Timestamp` (MUST) — time the auditable action occurred.
+      * `ObservedTimestamp` (MUST) — set by SDK if omitted.
+      * `EventName` (MUST) — e.g. `audit.user.login`, `audit.config.change`.
+      * `Body` (MAY) — free-form human-readable description; MUST NOT duplicate
+        mandatory attributes.
+      * `SeverityNumber` (SHOULD NOT) — not meaningful for audit records.
+      * `InstrumentationScope` (MUST be left empty).
+    attributes:
+      # --- mandatory ---
+      - ref: audit.record.id
+        requirement_level: required
+      - ref: audit.actor.id
+        requirement_level: required
+      - ref: audit.actor.type
+        requirement_level: required
+      - ref: audit.action
+        requirement_level: required
+      - ref: audit.outcome
+        requirement_level: required
+
+      # --- actor (optional enrichment) ---
+      - ref: audit.actor.name
+        requirement_level: opt_in
+
+      # --- target ---
+      - ref: audit.target.id
+        requirement_level:
+          recommended: >
+            When the action is performed on a specific, identifiable resource.
+      - ref: audit.target.type
+        requirement_level:
+          recommended: >
+            When `audit.target.id` is present and the resource kind adds
+            meaningful context for audit review.
+      - ref: audit.target.name
+        requirement_level: opt_in
+
+      # --- source / origin ---
+      - ref: audit.source.id
+        requirement_level:
+          recommended: >
+            When the network origin or calling device of the action is known
+            and meaningful for compliance review (e.g. PCI-DSS access logging).
+      - ref: audit.source.type
+        requirement_level:
+          recommended: When `audit.source.id` is present.
+
+      # --- integrity (tamper-evidence) ---
+      - ref: audit.integrity.value
+        requirement_level: opt_in
+      - ref: audit.integrity.algorithm
+        requirement_level:
+          conditionally_required: >
+            Required (as a Resource attribute) when `audit.integrity.value` is
+            present on any record emitted from this resource.
+      - ref: audit.integrity.certificate
+        requirement_level: opt_in
+
+      # --- hash-chain ordering ---
+      - ref: audit.sequence.number
+        requirement_level:
+          recommended: >
+            When the emitting service maintains a monotonic per-stream counter.
+            Required when `audit.prev.hash` is present.
+      - ref: audit.prev.hash
+        requirement_level:
+          recommended: >
+            When the emitting service implements a hash chain for tamper
+            detection. Requires `audit.sequence.number` to be present.
+
+      # --- schema versioning ---
+      - ref: audit.schema.version
+        requirement_level: opt_in
