@@ -74,7 +74,11 @@ groups:
             Required (as a Resource attribute) when `audit.integrity.value` is
             present on any record emitted from this resource.
       - ref: audit.integrity.certificate
-        requirement_level: opt_in
+        requirement_level:
+          conditionally_required: >
+            Required (as a Resource attribute, together with
+            `audit.integrity.algorithm`) when `audit.integrity.value` is present
+            on any record emitted from this resource.
 
       # --- hash-chain ordering ---
       - ref: audit.sequence.number
