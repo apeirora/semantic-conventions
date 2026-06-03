@@ -75,6 +75,7 @@ When a new `model/<area>/` directory is created, these files are affected automa
 
 1. `docs/<area>/*.md` — written/updated by `make table-generation`
 2. `docs/registry/attributes/<area>.md` — **fully overwritten** by `make registry-generation`; never create or edit manually
+3. `docs/registry/attributes/README.md` — **fully overwritten** by `make registry-generation`; lists all namespaces alphabetically; must be committed together with the new `<area>.md`
 3. `.github/ISSUE_TEMPLATE/*.yaml` — updated by `make generate-gh-issue-templates`
 4. `.chloggen/<branch-or-area>.yaml` — must be created manually (see below)
 
