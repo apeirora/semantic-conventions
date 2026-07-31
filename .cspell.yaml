@@ -175,6 +175,8 @@ words:
   - Depluralize
   - Undeprecate
   - bfcache
+  - apeirora
+  - Apeiro
 ignoreWords:
   - gitea
   - rego
