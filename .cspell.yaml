@@ -176,6 +176,8 @@ words:
   - Undeprecate
   - bfcache
   - IPFIX
+  - apeirora
+  - Apeiro
 ignoreWords:
   - gitea
   - rego
