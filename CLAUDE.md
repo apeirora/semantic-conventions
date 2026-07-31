@@ -3,7 +3,7 @@
 OpenTelemetry Semantic Conventions repository (fork of open-telemetry/semantic-conventions).
 Defines attributes, metrics, and events for logs, traces, and metrics via YAML + Markdown.
 
-## Repo structure
+## Repository structure
 
 ```
 model/          YAML source of truth — attribute definitions, events, metrics, spans
