@@ -47,7 +47,9 @@ This metric is [recommended][MetricRecommended].
 
 | Name | Instrument Type | Unit (UCUM) | Description | Stability | Entity Associations |
 | -------- | --------------- | ----------- | -------------- | --------- | ------ |
-| `otel.sdk.span.live` | UpDownCounter | `{span}` | The number of created spans with `recording=true` for which the end operation has not been called yet. | ![Development](https://img.shields.io/badge/-development-blue) | |
+| `otel.sdk.span.live` | UpDownCounter | `{span}` | The number of created spans with `recording=true` for which the end operation has not been called yet. [1] | ![Development](https://img.shields.io/badge/-development-blue) | |
+
+**[1]:** Non-recording spans are not counted, hence `otel.span.sampling_result` can only take values `RECORD_ONLY` and `RECORD_AND_SAMPLE`, not `DROP`.
 
 **Attributes:**
 
@@ -160,8 +162,8 @@ E.g. for Java the fully qualified classname SHOULD be used in this case.
 
 | Value | Description | Stability |
 | --- | --- | --- |
-| `batching_log_processor` | The builtin SDK batching log record processor | ![Development](https://img.shields.io/badge/-development-blue) |
-| `batching_span_processor` | The builtin SDK batching span processor | ![Development](https://img.shields.io/badge/-development-blue) |
+| `batching_log_processor` | The built-in SDK batching log record processor | ![Development](https://img.shields.io/badge/-development-blue) |
+| `batching_span_processor` | The built-in SDK batching span processor | ![Development](https://img.shields.io/badge/-development-blue) |
 | `otlp_grpc_log_exporter` | OTLP log record exporter over gRPC with protobuf serialization | ![Development](https://img.shields.io/badge/-development-blue) |
 | `otlp_grpc_metric_exporter` | OTLP metric exporter over gRPC with protobuf serialization | ![Development](https://img.shields.io/badge/-development-blue) |
 | `otlp_grpc_span_exporter` | OTLP span exporter over gRPC with protobuf serialization | ![Development](https://img.shields.io/badge/-development-blue) |
@@ -171,10 +173,10 @@ E.g. for Java the fully qualified classname SHOULD be used in this case.
 | `otlp_http_log_exporter` | OTLP log record exporter over HTTP with protobuf serialization | ![Development](https://img.shields.io/badge/-development-blue) |
 | `otlp_http_metric_exporter` | OTLP metric exporter over HTTP with protobuf serialization | ![Development](https://img.shields.io/badge/-development-blue) |
 | `otlp_http_span_exporter` | OTLP span exporter over HTTP with protobuf serialization | ![Development](https://img.shields.io/badge/-development-blue) |
-| `periodic_metric_reader` | The builtin SDK periodically exporting metric reader | ![Development](https://img.shields.io/badge/-development-blue) |
+| `periodic_metric_reader` | The built-in SDK periodically exporting metric reader | ![Development](https://img.shields.io/badge/-development-blue) |
 | `prometheus_http_text_metric_exporter` | Prometheus metric exporter over HTTP with the default text-based format | ![Development](https://img.shields.io/badge/-development-blue) |
-| `simple_log_processor` | The builtin SDK simple log record processor | ![Development](https://img.shields.io/badge/-development-blue) |
-| `simple_span_processor` | The builtin SDK simple span processor | ![Development](https://img.shields.io/badge/-development-blue) |
+| `simple_log_processor` | The built-in SDK simple log record processor | ![Development](https://img.shields.io/badge/-development-blue) |
+| `simple_span_processor` | The built-in SDK simple span processor | ![Development](https://img.shields.io/badge/-development-blue) |
 | `zipkin_http_span_exporter` | Zipkin span exporter over HTTP | ![Development](https://img.shields.io/badge/-development-blue) |
 
 <!-- prettier-ignore-end -->
@@ -226,8 +228,8 @@ E.g. for Java the fully qualified classname SHOULD be used in this case.
 
 | Value | Description | Stability |
 | --- | --- | --- |
-| `batching_log_processor` | The builtin SDK batching log record processor | ![Development](https://img.shields.io/badge/-development-blue) |
-| `batching_span_processor` | The builtin SDK batching span processor | ![Development](https://img.shields.io/badge/-development-blue) |
+| `batching_log_processor` | The built-in SDK batching log record processor | ![Development](https://img.shields.io/badge/-development-blue) |
+| `batching_span_processor` | The built-in SDK batching span processor | ![Development](https://img.shields.io/badge/-development-blue) |
 | `otlp_grpc_log_exporter` | OTLP log record exporter over gRPC with protobuf serialization | ![Development](https://img.shields.io/badge/-development-blue) |
 | `otlp_grpc_metric_exporter` | OTLP metric exporter over gRPC with protobuf serialization | ![Development](https://img.shields.io/badge/-development-blue) |
 | `otlp_grpc_span_exporter` | OTLP span exporter over gRPC with protobuf serialization | ![Development](https://img.shields.io/badge/-development-blue) |
@@ -237,10 +239,10 @@ E.g. for Java the fully qualified classname SHOULD be used in this case.
 | `otlp_http_log_exporter` | OTLP log record exporter over HTTP with protobuf serialization | ![Development](https://img.shields.io/badge/-development-blue) |
 | `otlp_http_metric_exporter` | OTLP metric exporter over HTTP with protobuf serialization | ![Development](https://img.shields.io/badge/-development-blue) |
 | `otlp_http_span_exporter` | OTLP span exporter over HTTP with protobuf serialization | ![Development](https://img.shields.io/badge/-development-blue) |
-| `periodic_metric_reader` | The builtin SDK periodically exporting metric reader | ![Development](https://img.shields.io/badge/-development-blue) |
+| `periodic_metric_reader` | The built-in SDK periodically exporting metric reader | ![Development](https://img.shields.io/badge/-development-blue) |
 | `prometheus_http_text_metric_exporter` | Prometheus metric exporter over HTTP with the default text-based format | ![Development](https://img.shields.io/badge/-development-blue) |
-| `simple_log_processor` | The builtin SDK simple log record processor | ![Development](https://img.shields.io/badge/-development-blue) |
-| `simple_span_processor` | The builtin SDK simple span processor | ![Development](https://img.shields.io/badge/-development-blue) |
+| `simple_log_processor` | The built-in SDK simple log record processor | ![Development](https://img.shields.io/badge/-development-blue) |
+| `simple_span_processor` | The built-in SDK simple span processor | ![Development](https://img.shields.io/badge/-development-blue) |
 | `zipkin_http_span_exporter` | Zipkin span exporter over HTTP | ![Development](https://img.shields.io/badge/-development-blue) |
 
 <!-- prettier-ignore-end -->
@@ -330,8 +332,8 @@ E.g. for Java the fully qualified classname SHOULD be used in this case.
 
 | Value | Description | Stability |
 | --- | --- | --- |
-| `batching_log_processor` | The builtin SDK batching log record processor | ![Development](https://img.shields.io/badge/-development-blue) |
-| `batching_span_processor` | The builtin SDK batching span processor | ![Development](https://img.shields.io/badge/-development-blue) |
+| `batching_log_processor` | The built-in SDK batching log record processor | ![Development](https://img.shields.io/badge/-development-blue) |
+| `batching_span_processor` | The built-in SDK batching span processor | ![Development](https://img.shields.io/badge/-development-blue) |
 | `otlp_grpc_log_exporter` | OTLP log record exporter over gRPC with protobuf serialization | ![Development](https://img.shields.io/badge/-development-blue) |
 | `otlp_grpc_metric_exporter` | OTLP metric exporter over gRPC with protobuf serialization | ![Development](https://img.shields.io/badge/-development-blue) |
 | `otlp_grpc_span_exporter` | OTLP span exporter over gRPC with protobuf serialization | ![Development](https://img.shields.io/badge/-development-blue) |
@@ -341,10 +343,10 @@ E.g. for Java the fully qualified classname SHOULD be used in this case.
 | `otlp_http_log_exporter` | OTLP log record exporter over HTTP with protobuf serialization | ![Development](https://img.shields.io/badge/-development-blue) |
 | `otlp_http_metric_exporter` | OTLP metric exporter over HTTP with protobuf serialization | ![Development](https://img.shields.io/badge/-development-blue) |
 | `otlp_http_span_exporter` | OTLP span exporter over HTTP with protobuf serialization | ![Development](https://img.shields.io/badge/-development-blue) |
-| `periodic_metric_reader` | The builtin SDK periodically exporting metric reader | ![Development](https://img.shields.io/badge/-development-blue) |
+| `periodic_metric_reader` | The built-in SDK periodically exporting metric reader | ![Development](https://img.shields.io/badge/-development-blue) |
 | `prometheus_http_text_metric_exporter` | Prometheus metric exporter over HTTP with the default text-based format | ![Development](https://img.shields.io/badge/-development-blue) |
-| `simple_log_processor` | The builtin SDK simple log record processor | ![Development](https://img.shields.io/badge/-development-blue) |
-| `simple_span_processor` | The builtin SDK simple span processor | ![Development](https://img.shields.io/badge/-development-blue) |
+| `simple_log_processor` | The built-in SDK simple log record processor | ![Development](https://img.shields.io/badge/-development-blue) |
+| `simple_span_processor` | The built-in SDK simple span processor | ![Development](https://img.shields.io/badge/-development-blue) |
 | `zipkin_http_span_exporter` | Zipkin span exporter over HTTP | ![Development](https://img.shields.io/badge/-development-blue) |
 
 <!-- prettier-ignore-end -->
@@ -364,7 +366,8 @@ This metric is [recommended][MetricRecommended].
 | -------- | --------------- | ----------- | -------------- | --------- | ------ |
 | `otel.sdk.exporter.span.inflight` | UpDownCounter | `{span}` | The number of spans which were passed to the exporter, but that have not been exported yet (neither successful, nor failed). [1] | ![Development](https://img.shields.io/badge/-development-blue) | |
 
-**[1]:** For successful exports, `error.type` MUST NOT be set. For failed exports, `error.type` MUST contain the failure cause.
+**[1]:** Spans are counted as inflight from when they are passed to the exporter until the export operation has concluded.
+If the exporter retries failed export attempts, spans remain inflight across all retry attempts and any backoff between them.
 
 **Attributes:**
 
@@ -372,7 +375,7 @@ This metric is [recommended][MetricRecommended].
 | --- | --- | --- | --- | --- | --- |
 | [`otel.component.name`](/docs/registry/attributes/otel.md) | ![Development](https://img.shields.io/badge/-development-blue) | `Recommended` | string | A name uniquely identifying the instance of the OpenTelemetry component within its containing SDK instance. [1] | `otlp_grpc_span_exporter/0`; `custom-name` |
 | [`otel.component.type`](/docs/registry/attributes/otel.md) | ![Development](https://img.shields.io/badge/-development-blue) | `Recommended` | string | A name identifying the type of the OpenTelemetry component. [2] | `batching_span_processor`; `com.example.MySpanExporter` |
-| [`server.address`](/docs/registry/attributes/server.md) | ![Stable](https://img.shields.io/badge/-stable-lightgreen) | `Recommended` when applicable | string | Server domain name if available without reverse DNS lookup; otherwise, IP address or Unix domain socket name. [3] | `example.com`; `10.1.2.80`; `/tmp/my.sock` |
+| [`server.address`](/docs/registry/attributes/server.md) | ![Stable](https://img.shields.io/badge/-stable-lightgreen) | `Recommended` when applicable | string | Server domain name if available without reverse DNS lookup; otherwise, IP address or UNIX domain socket name. [3] | `example.com`; `10.1.2.80`; `/tmp/my.sock` |
 | [`server.port`](/docs/registry/attributes/server.md) | ![Stable](https://img.shields.io/badge/-stable-lightgreen) | `Recommended` when applicable | int | Server port number. [4] | `80`; `8080`; `443` |
 
 **[1] `otel.component.name`:** Implementations SHOULD ensure a low cardinality for this attribute, even across application or SDK restarts.
@@ -402,8 +405,8 @@ E.g. for Java the fully qualified classname SHOULD be used in this case.
 
 | Value | Description | Stability |
 | --- | --- | --- |
-| `batching_log_processor` | The builtin SDK batching log record processor | ![Development](https://img.shields.io/badge/-development-blue) |
-| `batching_span_processor` | The builtin SDK batching span processor | ![Development](https://img.shields.io/badge/-development-blue) |
+| `batching_log_processor` | The built-in SDK batching log record processor | ![Development](https://img.shields.io/badge/-development-blue) |
+| `batching_span_processor` | The built-in SDK batching span processor | ![Development](https://img.shields.io/badge/-development-blue) |
 | `otlp_grpc_log_exporter` | OTLP log record exporter over gRPC with protobuf serialization | ![Development](https://img.shields.io/badge/-development-blue) |
 | `otlp_grpc_metric_exporter` | OTLP metric exporter over gRPC with protobuf serialization | ![Development](https://img.shields.io/badge/-development-blue) |
 | `otlp_grpc_span_exporter` | OTLP span exporter over gRPC with protobuf serialization | ![Development](https://img.shields.io/badge/-development-blue) |
@@ -413,10 +416,10 @@ E.g. for Java the fully qualified classname SHOULD be used in this case.
 | `otlp_http_log_exporter` | OTLP log record exporter over HTTP with protobuf serialization | ![Development](https://img.shields.io/badge/-development-blue) |
 | `otlp_http_metric_exporter` | OTLP metric exporter over HTTP with protobuf serialization | ![Development](https://img.shields.io/badge/-development-blue) |
 | `otlp_http_span_exporter` | OTLP span exporter over HTTP with protobuf serialization | ![Development](https://img.shields.io/badge/-development-blue) |
-| `periodic_metric_reader` | The builtin SDK periodically exporting metric reader | ![Development](https://img.shields.io/badge/-development-blue) |
+| `periodic_metric_reader` | The built-in SDK periodically exporting metric reader | ![Development](https://img.shields.io/badge/-development-blue) |
 | `prometheus_http_text_metric_exporter` | Prometheus metric exporter over HTTP with the default text-based format | ![Development](https://img.shields.io/badge/-development-blue) |
-| `simple_log_processor` | The builtin SDK simple log record processor | ![Development](https://img.shields.io/badge/-development-blue) |
-| `simple_span_processor` | The builtin SDK simple span processor | ![Development](https://img.shields.io/badge/-development-blue) |
+| `simple_log_processor` | The built-in SDK simple log record processor | ![Development](https://img.shields.io/badge/-development-blue) |
+| `simple_span_processor` | The built-in SDK simple span processor | ![Development](https://img.shields.io/badge/-development-blue) |
 | `zipkin_http_span_exporter` | Zipkin span exporter over HTTP | ![Development](https://img.shields.io/badge/-development-blue) |
 
 <!-- prettier-ignore-end -->
@@ -439,6 +442,9 @@ This metric is [recommended][MetricRecommended].
 **[1]:** For successful exports, `error.type` MUST NOT be set. For failed exports, `error.type` MUST contain the failure cause.
 For exporters with partial success semantics (e.g. OTLP with `rejected_spans`), rejected spans MUST count as failed and only non-rejected spans count as success.
 If no rejection reason is available, `rejected` SHOULD be used as value for `error.type`.
+If the exporter retries failed export attempts, the export operation is considered finished only after the final attempt has concluded.
+Each span MUST be counted exactly once per export operation: intermediate failed attempts that are followed by a retry MUST NOT increment the counter,
+and `error.type` reflects the cause of the final attempt.
 
 **Attributes:**
 
@@ -447,7 +453,7 @@ If no rejection reason is available, `rejected` SHOULD be used as value for `err
 | [`error.type`](/docs/registry/attributes/error.md) | ![Stable](https://img.shields.io/badge/-stable-lightgreen) | `Recommended` | string | Describes a class of error the operation ended with. [1] | `rejected`; `timeout`; `500`; `java.net.UnknownHostException` |
 | [`otel.component.name`](/docs/registry/attributes/otel.md) | ![Development](https://img.shields.io/badge/-development-blue) | `Recommended` | string | A name uniquely identifying the instance of the OpenTelemetry component within its containing SDK instance. [2] | `otlp_grpc_span_exporter/0`; `custom-name` |
 | [`otel.component.type`](/docs/registry/attributes/otel.md) | ![Development](https://img.shields.io/badge/-development-blue) | `Recommended` | string | A name identifying the type of the OpenTelemetry component. [3] | `batching_span_processor`; `com.example.MySpanExporter` |
-| [`server.address`](/docs/registry/attributes/server.md) | ![Stable](https://img.shields.io/badge/-stable-lightgreen) | `Recommended` when applicable | string | Server domain name if available without reverse DNS lookup; otherwise, IP address or Unix domain socket name. [4] | `example.com`; `10.1.2.80`; `/tmp/my.sock` |
+| [`server.address`](/docs/registry/attributes/server.md) | ![Stable](https://img.shields.io/badge/-stable-lightgreen) | `Recommended` when applicable | string | Server domain name if available without reverse DNS lookup; otherwise, IP address or UNIX domain socket name. [4] | `example.com`; `10.1.2.80`; `/tmp/my.sock` |
 | [`server.port`](/docs/registry/attributes/server.md) | ![Stable](https://img.shields.io/badge/-stable-lightgreen) | `Recommended` when applicable | int | Server port number. [5] | `80`; `8080`; `443` |
 
 **[1] `error.type`:** The `error.type` SHOULD be predictable, and SHOULD have low cardinality.
@@ -511,8 +517,8 @@ E.g. for Java the fully qualified classname SHOULD be used in this case.
 
 | Value | Description | Stability |
 | --- | --- | --- |
-| `batching_log_processor` | The builtin SDK batching log record processor | ![Development](https://img.shields.io/badge/-development-blue) |
-| `batching_span_processor` | The builtin SDK batching span processor | ![Development](https://img.shields.io/badge/-development-blue) |
+| `batching_log_processor` | The built-in SDK batching log record processor | ![Development](https://img.shields.io/badge/-development-blue) |
+| `batching_span_processor` | The built-in SDK batching span processor | ![Development](https://img.shields.io/badge/-development-blue) |
 | `otlp_grpc_log_exporter` | OTLP log record exporter over gRPC with protobuf serialization | ![Development](https://img.shields.io/badge/-development-blue) |
 | `otlp_grpc_metric_exporter` | OTLP metric exporter over gRPC with protobuf serialization | ![Development](https://img.shields.io/badge/-development-blue) |
 | `otlp_grpc_span_exporter` | OTLP span exporter over gRPC with protobuf serialization | ![Development](https://img.shields.io/badge/-development-blue) |
@@ -522,10 +528,10 @@ E.g. for Java the fully qualified classname SHOULD be used in this case.
 | `otlp_http_log_exporter` | OTLP log record exporter over HTTP with protobuf serialization | ![Development](https://img.shields.io/badge/-development-blue) |
 | `otlp_http_metric_exporter` | OTLP metric exporter over HTTP with protobuf serialization | ![Development](https://img.shields.io/badge/-development-blue) |
 | `otlp_http_span_exporter` | OTLP span exporter over HTTP with protobuf serialization | ![Development](https://img.shields.io/badge/-development-blue) |
-| `periodic_metric_reader` | The builtin SDK periodically exporting metric reader | ![Development](https://img.shields.io/badge/-development-blue) |
+| `periodic_metric_reader` | The built-in SDK periodically exporting metric reader | ![Development](https://img.shields.io/badge/-development-blue) |
 | `prometheus_http_text_metric_exporter` | Prometheus metric exporter over HTTP with the default text-based format | ![Development](https://img.shields.io/badge/-development-blue) |
-| `simple_log_processor` | The builtin SDK simple log record processor | ![Development](https://img.shields.io/badge/-development-blue) |
-| `simple_span_processor` | The builtin SDK simple span processor | ![Development](https://img.shields.io/badge/-development-blue) |
+| `simple_log_processor` | The built-in SDK simple log record processor | ![Development](https://img.shields.io/badge/-development-blue) |
+| `simple_span_processor` | The built-in SDK simple span processor | ![Development](https://img.shields.io/badge/-development-blue) |
 | `zipkin_http_span_exporter` | Zipkin span exporter over HTTP | ![Development](https://img.shields.io/badge/-development-blue) |
 
 <!-- prettier-ignore-end -->
@@ -596,8 +602,8 @@ E.g. for Java the fully qualified classname SHOULD be used in this case.
 
 | Value | Description | Stability |
 | --- | --- | --- |
-| `batching_log_processor` | The builtin SDK batching log record processor | ![Development](https://img.shields.io/badge/-development-blue) |
-| `batching_span_processor` | The builtin SDK batching span processor | ![Development](https://img.shields.io/badge/-development-blue) |
+| `batching_log_processor` | The built-in SDK batching log record processor | ![Development](https://img.shields.io/badge/-development-blue) |
+| `batching_span_processor` | The built-in SDK batching span processor | ![Development](https://img.shields.io/badge/-development-blue) |
 | `otlp_grpc_log_exporter` | OTLP log record exporter over gRPC with protobuf serialization | ![Development](https://img.shields.io/badge/-development-blue) |
 | `otlp_grpc_metric_exporter` | OTLP metric exporter over gRPC with protobuf serialization | ![Development](https://img.shields.io/badge/-development-blue) |
 | `otlp_grpc_span_exporter` | OTLP span exporter over gRPC with protobuf serialization | ![Development](https://img.shields.io/badge/-development-blue) |
@@ -607,10 +613,10 @@ E.g. for Java the fully qualified classname SHOULD be used in this case.
 | `otlp_http_log_exporter` | OTLP log record exporter over HTTP with protobuf serialization | ![Development](https://img.shields.io/badge/-development-blue) |
 | `otlp_http_metric_exporter` | OTLP metric exporter over HTTP with protobuf serialization | ![Development](https://img.shields.io/badge/-development-blue) |
 | `otlp_http_span_exporter` | OTLP span exporter over HTTP with protobuf serialization | ![Development](https://img.shields.io/badge/-development-blue) |
-| `periodic_metric_reader` | The builtin SDK periodically exporting metric reader | ![Development](https://img.shields.io/badge/-development-blue) |
+| `periodic_metric_reader` | The built-in SDK periodically exporting metric reader | ![Development](https://img.shields.io/badge/-development-blue) |
 | `prometheus_http_text_metric_exporter` | Prometheus metric exporter over HTTP with the default text-based format | ![Development](https://img.shields.io/badge/-development-blue) |
-| `simple_log_processor` | The builtin SDK simple log record processor | ![Development](https://img.shields.io/badge/-development-blue) |
-| `simple_span_processor` | The builtin SDK simple span processor | ![Development](https://img.shields.io/badge/-development-blue) |
+| `simple_log_processor` | The built-in SDK simple log record processor | ![Development](https://img.shields.io/badge/-development-blue) |
+| `simple_span_processor` | The built-in SDK simple span processor | ![Development](https://img.shields.io/badge/-development-blue) |
 | `zipkin_http_span_exporter` | Zipkin span exporter over HTTP | ![Development](https://img.shields.io/badge/-development-blue) |
 
 <!-- prettier-ignore-end -->
@@ -662,8 +668,8 @@ E.g. for Java the fully qualified classname SHOULD be used in this case.
 
 | Value | Description | Stability |
 | --- | --- | --- |
-| `batching_log_processor` | The builtin SDK batching log record processor | ![Development](https://img.shields.io/badge/-development-blue) |
-| `batching_span_processor` | The builtin SDK batching span processor | ![Development](https://img.shields.io/badge/-development-blue) |
+| `batching_log_processor` | The built-in SDK batching log record processor | ![Development](https://img.shields.io/badge/-development-blue) |
+| `batching_span_processor` | The built-in SDK batching span processor | ![Development](https://img.shields.io/badge/-development-blue) |
 | `otlp_grpc_log_exporter` | OTLP log record exporter over gRPC with protobuf serialization | ![Development](https://img.shields.io/badge/-development-blue) |
 | `otlp_grpc_metric_exporter` | OTLP metric exporter over gRPC with protobuf serialization | ![Development](https://img.shields.io/badge/-development-blue) |
 | `otlp_grpc_span_exporter` | OTLP span exporter over gRPC with protobuf serialization | ![Development](https://img.shields.io/badge/-development-blue) |
@@ -673,10 +679,10 @@ E.g. for Java the fully qualified classname SHOULD be used in this case.
 | `otlp_http_log_exporter` | OTLP log record exporter over HTTP with protobuf serialization | ![Development](https://img.shields.io/badge/-development-blue) |
 | `otlp_http_metric_exporter` | OTLP metric exporter over HTTP with protobuf serialization | ![Development](https://img.shields.io/badge/-development-blue) |
 | `otlp_http_span_exporter` | OTLP span exporter over HTTP with protobuf serialization | ![Development](https://img.shields.io/badge/-development-blue) |
-| `periodic_metric_reader` | The builtin SDK periodically exporting metric reader | ![Development](https://img.shields.io/badge/-development-blue) |
+| `periodic_metric_reader` | The built-in SDK periodically exporting metric reader | ![Development](https://img.shields.io/badge/-development-blue) |
 | `prometheus_http_text_metric_exporter` | Prometheus metric exporter over HTTP with the default text-based format | ![Development](https://img.shields.io/badge/-development-blue) |
-| `simple_log_processor` | The builtin SDK simple log record processor | ![Development](https://img.shields.io/badge/-development-blue) |
-| `simple_span_processor` | The builtin SDK simple span processor | ![Development](https://img.shields.io/badge/-development-blue) |
+| `simple_log_processor` | The built-in SDK simple log record processor | ![Development](https://img.shields.io/badge/-development-blue) |
+| `simple_span_processor` | The built-in SDK simple span processor | ![Development](https://img.shields.io/badge/-development-blue) |
 | `zipkin_http_span_exporter` | Zipkin span exporter over HTTP | ![Development](https://img.shields.io/badge/-development-blue) |
 
 <!-- prettier-ignore-end -->
@@ -767,8 +773,8 @@ E.g. for Java the fully qualified classname SHOULD be used in this case.
 
 | Value | Description | Stability |
 | --- | --- | --- |
-| `batching_log_processor` | The builtin SDK batching log record processor | ![Development](https://img.shields.io/badge/-development-blue) |
-| `batching_span_processor` | The builtin SDK batching span processor | ![Development](https://img.shields.io/badge/-development-blue) |
+| `batching_log_processor` | The built-in SDK batching log record processor | ![Development](https://img.shields.io/badge/-development-blue) |
+| `batching_span_processor` | The built-in SDK batching span processor | ![Development](https://img.shields.io/badge/-development-blue) |
 | `otlp_grpc_log_exporter` | OTLP log record exporter over gRPC with protobuf serialization | ![Development](https://img.shields.io/badge/-development-blue) |
 | `otlp_grpc_metric_exporter` | OTLP metric exporter over gRPC with protobuf serialization | ![Development](https://img.shields.io/badge/-development-blue) |
 | `otlp_grpc_span_exporter` | OTLP span exporter over gRPC with protobuf serialization | ![Development](https://img.shields.io/badge/-development-blue) |
@@ -778,10 +784,10 @@ E.g. for Java the fully qualified classname SHOULD be used in this case.
 | `otlp_http_log_exporter` | OTLP log record exporter over HTTP with protobuf serialization | ![Development](https://img.shields.io/badge/-development-blue) |
 | `otlp_http_metric_exporter` | OTLP metric exporter over HTTP with protobuf serialization | ![Development](https://img.shields.io/badge/-development-blue) |
 | `otlp_http_span_exporter` | OTLP span exporter over HTTP with protobuf serialization | ![Development](https://img.shields.io/badge/-development-blue) |
-| `periodic_metric_reader` | The builtin SDK periodically exporting metric reader | ![Development](https://img.shields.io/badge/-development-blue) |
+| `periodic_metric_reader` | The built-in SDK periodically exporting metric reader | ![Development](https://img.shields.io/badge/-development-blue) |
 | `prometheus_http_text_metric_exporter` | Prometheus metric exporter over HTTP with the default text-based format | ![Development](https://img.shields.io/badge/-development-blue) |
-| `simple_log_processor` | The builtin SDK simple log record processor | ![Development](https://img.shields.io/badge/-development-blue) |
-| `simple_span_processor` | The builtin SDK simple span processor | ![Development](https://img.shields.io/badge/-development-blue) |
+| `simple_log_processor` | The built-in SDK simple log record processor | ![Development](https://img.shields.io/badge/-development-blue) |
+| `simple_span_processor` | The built-in SDK simple span processor | ![Development](https://img.shields.io/badge/-development-blue) |
 | `zipkin_http_span_exporter` | Zipkin span exporter over HTTP | ![Development](https://img.shields.io/badge/-development-blue) |
 
 <!-- prettier-ignore-end -->
@@ -801,7 +807,8 @@ This metric is [recommended][MetricRecommended].
 | -------- | --------------- | ----------- | -------------- | --------- | ------ |
 | `otel.sdk.exporter.log.inflight` | UpDownCounter | `{log_record}` | The number of log records which were passed to the exporter, but that have not been exported yet (neither successful, nor failed). [1] | ![Development](https://img.shields.io/badge/-development-blue) | |
 
-**[1]:** For successful exports, `error.type` MUST NOT be set. For failed exports, `error.type` MUST contain the failure cause.
+**[1]:** Log records are counted as inflight from when they are passed to the exporter until the export operation has concluded.
+If the exporter retries failed export attempts, log records remain inflight across all retry attempts and any backoff between them.
 
 **Attributes:**
 
@@ -809,7 +816,7 @@ This metric is [recommended][MetricRecommended].
 | --- | --- | --- | --- | --- | --- |
 | [`otel.component.name`](/docs/registry/attributes/otel.md) | ![Development](https://img.shields.io/badge/-development-blue) | `Recommended` | string | A name uniquely identifying the instance of the OpenTelemetry component within its containing SDK instance. [1] | `otlp_grpc_span_exporter/0`; `custom-name` |
 | [`otel.component.type`](/docs/registry/attributes/otel.md) | ![Development](https://img.shields.io/badge/-development-blue) | `Recommended` | string | A name identifying the type of the OpenTelemetry component. [2] | `batching_span_processor`; `com.example.MySpanExporter` |
-| [`server.address`](/docs/registry/attributes/server.md) | ![Stable](https://img.shields.io/badge/-stable-lightgreen) | `Recommended` when applicable | string | Server domain name if available without reverse DNS lookup; otherwise, IP address or Unix domain socket name. [3] | `example.com`; `10.1.2.80`; `/tmp/my.sock` |
+| [`server.address`](/docs/registry/attributes/server.md) | ![Stable](https://img.shields.io/badge/-stable-lightgreen) | `Recommended` when applicable | string | Server domain name if available without reverse DNS lookup; otherwise, IP address or UNIX domain socket name. [3] | `example.com`; `10.1.2.80`; `/tmp/my.sock` |
 | [`server.port`](/docs/registry/attributes/server.md) | ![Stable](https://img.shields.io/badge/-stable-lightgreen) | `Recommended` when applicable | int | Server port number. [4] | `80`; `8080`; `443` |
 
 **[1] `otel.component.name`:** Implementations SHOULD ensure a low cardinality for this attribute, even across application or SDK restarts.
@@ -839,8 +846,8 @@ E.g. for Java the fully qualified classname SHOULD be used in this case.
 
 | Value | Description | Stability |
 | --- | --- | --- |
-| `batching_log_processor` | The builtin SDK batching log record processor | ![Development](https://img.shields.io/badge/-development-blue) |
-| `batching_span_processor` | The builtin SDK batching span processor | ![Development](https://img.shields.io/badge/-development-blue) |
+| `batching_log_processor` | The built-in SDK batching log record processor | ![Development](https://img.shields.io/badge/-development-blue) |
+| `batching_span_processor` | The built-in SDK batching span processor | ![Development](https://img.shields.io/badge/-development-blue) |
 | `otlp_grpc_log_exporter` | OTLP log record exporter over gRPC with protobuf serialization | ![Development](https://img.shields.io/badge/-development-blue) |
 | `otlp_grpc_metric_exporter` | OTLP metric exporter over gRPC with protobuf serialization | ![Development](https://img.shields.io/badge/-development-blue) |
 | `otlp_grpc_span_exporter` | OTLP span exporter over gRPC with protobuf serialization | ![Development](https://img.shields.io/badge/-development-blue) |
@@ -850,10 +857,10 @@ E.g. for Java the fully qualified classname SHOULD be used in this case.
 | `otlp_http_log_exporter` | OTLP log record exporter over HTTP with protobuf serialization | ![Development](https://img.shields.io/badge/-development-blue) |
 | `otlp_http_metric_exporter` | OTLP metric exporter over HTTP with protobuf serialization | ![Development](https://img.shields.io/badge/-development-blue) |
 | `otlp_http_span_exporter` | OTLP span exporter over HTTP with protobuf serialization | ![Development](https://img.shields.io/badge/-development-blue) |
-| `periodic_metric_reader` | The builtin SDK periodically exporting metric reader | ![Development](https://img.shields.io/badge/-development-blue) |
+| `periodic_metric_reader` | The built-in SDK periodically exporting metric reader | ![Development](https://img.shields.io/badge/-development-blue) |
 | `prometheus_http_text_metric_exporter` | Prometheus metric exporter over HTTP with the default text-based format | ![Development](https://img.shields.io/badge/-development-blue) |
-| `simple_log_processor` | The builtin SDK simple log record processor | ![Development](https://img.shields.io/badge/-development-blue) |
-| `simple_span_processor` | The builtin SDK simple span processor | ![Development](https://img.shields.io/badge/-development-blue) |
+| `simple_log_processor` | The built-in SDK simple log record processor | ![Development](https://img.shields.io/badge/-development-blue) |
+| `simple_span_processor` | The built-in SDK simple span processor | ![Development](https://img.shields.io/badge/-development-blue) |
 | `zipkin_http_span_exporter` | Zipkin span exporter over HTTP | ![Development](https://img.shields.io/badge/-development-blue) |
 
 <!-- prettier-ignore-end -->
@@ -876,6 +883,9 @@ This metric is [recommended][MetricRecommended].
 **[1]:** For successful exports, `error.type` MUST NOT be set. For failed exports, `error.type` MUST contain the failure cause.
 For exporters with partial success semantics (e.g. OTLP with `rejected_log_records`), rejected log records MUST count as failed and only non-rejected log records count as success.
 If no rejection reason is available, `rejected` SHOULD be used as value for `error.type`.
+If the exporter retries failed export attempts, the export operation is considered finished only after the final attempt has concluded.
+Each log record MUST be counted exactly once per export operation: intermediate failed attempts that are followed by a retry MUST NOT increment the counter,
+and `error.type` reflects the cause of the final attempt.
 
 **Attributes:**
 
@@ -884,7 +894,7 @@ If no rejection reason is available, `rejected` SHOULD be used as value for `err
 | [`error.type`](/docs/registry/attributes/error.md) | ![Stable](https://img.shields.io/badge/-stable-lightgreen) | `Recommended` | string | Describes a class of error the operation ended with. [1] | `rejected`; `timeout`; `500`; `java.net.UnknownHostException` |
 | [`otel.component.name`](/docs/registry/attributes/otel.md) | ![Development](https://img.shields.io/badge/-development-blue) | `Recommended` | string | A name uniquely identifying the instance of the OpenTelemetry component within its containing SDK instance. [2] | `otlp_grpc_span_exporter/0`; `custom-name` |
 | [`otel.component.type`](/docs/registry/attributes/otel.md) | ![Development](https://img.shields.io/badge/-development-blue) | `Recommended` | string | A name identifying the type of the OpenTelemetry component. [3] | `batching_span_processor`; `com.example.MySpanExporter` |
-| [`server.address`](/docs/registry/attributes/server.md) | ![Stable](https://img.shields.io/badge/-stable-lightgreen) | `Recommended` when applicable | string | Server domain name if available without reverse DNS lookup; otherwise, IP address or Unix domain socket name. [4] | `example.com`; `10.1.2.80`; `/tmp/my.sock` |
+| [`server.address`](/docs/registry/attributes/server.md) | ![Stable](https://img.shields.io/badge/-stable-lightgreen) | `Recommended` when applicable | string | Server domain name if available without reverse DNS lookup; otherwise, IP address or UNIX domain socket name. [4] | `example.com`; `10.1.2.80`; `/tmp/my.sock` |
 | [`server.port`](/docs/registry/attributes/server.md) | ![Stable](https://img.shields.io/badge/-stable-lightgreen) | `Recommended` when applicable | int | Server port number. [5] | `80`; `8080`; `443` |
 
 **[1] `error.type`:** The `error.type` SHOULD be predictable, and SHOULD have low cardinality.
@@ -948,8 +958,8 @@ E.g. for Java the fully qualified classname SHOULD be used in this case.
 
 | Value | Description | Stability |
 | --- | --- | --- |
-| `batching_log_processor` | The builtin SDK batching log record processor | ![Development](https://img.shields.io/badge/-development-blue) |
-| `batching_span_processor` | The builtin SDK batching span processor | ![Development](https://img.shields.io/badge/-development-blue) |
+| `batching_log_processor` | The built-in SDK batching log record processor | ![Development](https://img.shields.io/badge/-development-blue) |
+| `batching_span_processor` | The built-in SDK batching span processor | ![Development](https://img.shields.io/badge/-development-blue) |
 | `otlp_grpc_log_exporter` | OTLP log record exporter over gRPC with protobuf serialization | ![Development](https://img.shields.io/badge/-development-blue) |
 | `otlp_grpc_metric_exporter` | OTLP metric exporter over gRPC with protobuf serialization | ![Development](https://img.shields.io/badge/-development-blue) |
 | `otlp_grpc_span_exporter` | OTLP span exporter over gRPC with protobuf serialization | ![Development](https://img.shields.io/badge/-development-blue) |
@@ -959,10 +969,10 @@ E.g. for Java the fully qualified classname SHOULD be used in this case.
 | `otlp_http_log_exporter` | OTLP log record exporter over HTTP with protobuf serialization | ![Development](https://img.shields.io/badge/-development-blue) |
 | `otlp_http_metric_exporter` | OTLP metric exporter over HTTP with protobuf serialization | ![Development](https://img.shields.io/badge/-development-blue) |
 | `otlp_http_span_exporter` | OTLP span exporter over HTTP with protobuf serialization | ![Development](https://img.shields.io/badge/-development-blue) |
-| `periodic_metric_reader` | The builtin SDK periodically exporting metric reader | ![Development](https://img.shields.io/badge/-development-blue) |
+| `periodic_metric_reader` | The built-in SDK periodically exporting metric reader | ![Development](https://img.shields.io/badge/-development-blue) |
 | `prometheus_http_text_metric_exporter` | Prometheus metric exporter over HTTP with the default text-based format | ![Development](https://img.shields.io/badge/-development-blue) |
-| `simple_log_processor` | The builtin SDK simple log record processor | ![Development](https://img.shields.io/badge/-development-blue) |
-| `simple_span_processor` | The builtin SDK simple span processor | ![Development](https://img.shields.io/badge/-development-blue) |
+| `simple_log_processor` | The built-in SDK simple log record processor | ![Development](https://img.shields.io/badge/-development-blue) |
+| `simple_span_processor` | The built-in SDK simple span processor | ![Development](https://img.shields.io/badge/-development-blue) |
 | `zipkin_http_span_exporter` | Zipkin span exporter over HTTP | ![Development](https://img.shields.io/badge/-development-blue) |
 
 <!-- prettier-ignore-end -->
@@ -984,7 +994,8 @@ This metric is [recommended][MetricRecommended].
 | -------- | --------------- | ----------- | -------------- | --------- | ------ |
 | `otel.sdk.exporter.metric_data_point.inflight` | UpDownCounter | `{data_point}` | The number of metric data points which were passed to the exporter, but that have not been exported yet (neither successful, nor failed). [1] | ![Development](https://img.shields.io/badge/-development-blue) | |
 
-**[1]:** For successful exports, `error.type` MUST NOT be set. For failed exports, `error.type` MUST contain the failure cause.
+**[1]:** Metric data points are counted as inflight from when they are passed to the exporter until the export operation has concluded.
+If the exporter retries failed export attempts, metric data points remain inflight across all retry attempts and any backoff between them.
 
 **Attributes:**
 
@@ -992,7 +1003,7 @@ This metric is [recommended][MetricRecommended].
 | --- | --- | --- | --- | --- | --- |
 | [`otel.component.name`](/docs/registry/attributes/otel.md) | ![Development](https://img.shields.io/badge/-development-blue) | `Recommended` | string | A name uniquely identifying the instance of the OpenTelemetry component within its containing SDK instance. [1] | `otlp_grpc_span_exporter/0`; `custom-name` |
 | [`otel.component.type`](/docs/registry/attributes/otel.md) | ![Development](https://img.shields.io/badge/-development-blue) | `Recommended` | string | A name identifying the type of the OpenTelemetry component. [2] | `batching_span_processor`; `com.example.MySpanExporter` |
-| [`server.address`](/docs/registry/attributes/server.md) | ![Stable](https://img.shields.io/badge/-stable-lightgreen) | `Recommended` when applicable | string | Server domain name if available without reverse DNS lookup; otherwise, IP address or Unix domain socket name. [3] | `example.com`; `10.1.2.80`; `/tmp/my.sock` |
+| [`server.address`](/docs/registry/attributes/server.md) | ![Stable](https://img.shields.io/badge/-stable-lightgreen) | `Recommended` when applicable | string | Server domain name if available without reverse DNS lookup; otherwise, IP address or UNIX domain socket name. [3] | `example.com`; `10.1.2.80`; `/tmp/my.sock` |
 | [`server.port`](/docs/registry/attributes/server.md) | ![Stable](https://img.shields.io/badge/-stable-lightgreen) | `Recommended` when applicable | int | Server port number. [4] | `80`; `8080`; `443` |
 
 **[1] `otel.component.name`:** Implementations SHOULD ensure a low cardinality for this attribute, even across application or SDK restarts.
@@ -1022,8 +1033,8 @@ E.g. for Java the fully qualified classname SHOULD be used in this case.
 
 | Value | Description | Stability |
 | --- | --- | --- |
-| `batching_log_processor` | The builtin SDK batching log record processor | ![Development](https://img.shields.io/badge/-development-blue) |
-| `batching_span_processor` | The builtin SDK batching span processor | ![Development](https://img.shields.io/badge/-development-blue) |
+| `batching_log_processor` | The built-in SDK batching log record processor | ![Development](https://img.shields.io/badge/-development-blue) |
+| `batching_span_processor` | The built-in SDK batching span processor | ![Development](https://img.shields.io/badge/-development-blue) |
 | `otlp_grpc_log_exporter` | OTLP log record exporter over gRPC with protobuf serialization | ![Development](https://img.shields.io/badge/-development-blue) |
 | `otlp_grpc_metric_exporter` | OTLP metric exporter over gRPC with protobuf serialization | ![Development](https://img.shields.io/badge/-development-blue) |
 | `otlp_grpc_span_exporter` | OTLP span exporter over gRPC with protobuf serialization | ![Development](https://img.shields.io/badge/-development-blue) |
@@ -1033,10 +1044,10 @@ E.g. for Java the fully qualified classname SHOULD be used in this case.
 | `otlp_http_log_exporter` | OTLP log record exporter over HTTP with protobuf serialization | ![Development](https://img.shields.io/badge/-development-blue) |
 | `otlp_http_metric_exporter` | OTLP metric exporter over HTTP with protobuf serialization | ![Development](https://img.shields.io/badge/-development-blue) |
 | `otlp_http_span_exporter` | OTLP span exporter over HTTP with protobuf serialization | ![Development](https://img.shields.io/badge/-development-blue) |
-| `periodic_metric_reader` | The builtin SDK periodically exporting metric reader | ![Development](https://img.shields.io/badge/-development-blue) |
+| `periodic_metric_reader` | The built-in SDK periodically exporting metric reader | ![Development](https://img.shields.io/badge/-development-blue) |
 | `prometheus_http_text_metric_exporter` | Prometheus metric exporter over HTTP with the default text-based format | ![Development](https://img.shields.io/badge/-development-blue) |
-| `simple_log_processor` | The builtin SDK simple log record processor | ![Development](https://img.shields.io/badge/-development-blue) |
-| `simple_span_processor` | The builtin SDK simple span processor | ![Development](https://img.shields.io/badge/-development-blue) |
+| `simple_log_processor` | The built-in SDK simple log record processor | ![Development](https://img.shields.io/badge/-development-blue) |
+| `simple_span_processor` | The built-in SDK simple span processor | ![Development](https://img.shields.io/badge/-development-blue) |
 | `zipkin_http_span_exporter` | Zipkin span exporter over HTTP | ![Development](https://img.shields.io/badge/-development-blue) |
 
 <!-- prettier-ignore-end -->
@@ -1059,6 +1070,9 @@ This metric is [recommended][MetricRecommended].
 **[1]:** For successful exports, `error.type` MUST NOT be set. For failed exports, `error.type` MUST contain the failure cause.
 For exporters with partial success semantics (e.g. OTLP with `rejected_data_points`), rejected data points MUST count as failed and only non-rejected data points count as success.
 If no rejection reason is available, `rejected` SHOULD be used as value for `error.type`.
+If the exporter retries failed export attempts, the export operation is considered finished only after the final attempt has concluded.
+Each metric data point MUST be counted exactly once per export operation: intermediate failed attempts that are followed by a retry MUST NOT increment the counter,
+and `error.type` reflects the cause of the final attempt.
 
 **Attributes:**
 
@@ -1067,7 +1081,7 @@ If no rejection reason is available, `rejected` SHOULD be used as value for `err
 | [`error.type`](/docs/registry/attributes/error.md) | ![Stable](https://img.shields.io/badge/-stable-lightgreen) | `Recommended` | string | Describes a class of error the operation ended with. [1] | `rejected`; `timeout`; `500`; `java.net.UnknownHostException` |
 | [`otel.component.name`](/docs/registry/attributes/otel.md) | ![Development](https://img.shields.io/badge/-development-blue) | `Recommended` | string | A name uniquely identifying the instance of the OpenTelemetry component within its containing SDK instance. [2] | `otlp_grpc_span_exporter/0`; `custom-name` |
 | [`otel.component.type`](/docs/registry/attributes/otel.md) | ![Development](https://img.shields.io/badge/-development-blue) | `Recommended` | string | A name identifying the type of the OpenTelemetry component. [3] | `batching_span_processor`; `com.example.MySpanExporter` |
-| [`server.address`](/docs/registry/attributes/server.md) | ![Stable](https://img.shields.io/badge/-stable-lightgreen) | `Recommended` when applicable | string | Server domain name if available without reverse DNS lookup; otherwise, IP address or Unix domain socket name. [4] | `example.com`; `10.1.2.80`; `/tmp/my.sock` |
+| [`server.address`](/docs/registry/attributes/server.md) | ![Stable](https://img.shields.io/badge/-stable-lightgreen) | `Recommended` when applicable | string | Server domain name if available without reverse DNS lookup; otherwise, IP address or UNIX domain socket name. [4] | `example.com`; `10.1.2.80`; `/tmp/my.sock` |
 | [`server.port`](/docs/registry/attributes/server.md) | ![Stable](https://img.shields.io/badge/-stable-lightgreen) | `Recommended` when applicable | int | Server port number. [5] | `80`; `8080`; `443` |
 
 **[1] `error.type`:** The `error.type` SHOULD be predictable, and SHOULD have low cardinality.
@@ -1131,8 +1145,8 @@ E.g. for Java the fully qualified classname SHOULD be used in this case.
 
 | Value | Description | Stability |
 | --- | --- | --- |
-| `batching_log_processor` | The builtin SDK batching log record processor | ![Development](https://img.shields.io/badge/-development-blue) |
-| `batching_span_processor` | The builtin SDK batching span processor | ![Development](https://img.shields.io/badge/-development-blue) |
+| `batching_log_processor` | The built-in SDK batching log record processor | ![Development](https://img.shields.io/badge/-development-blue) |
+| `batching_span_processor` | The built-in SDK batching span processor | ![Development](https://img.shields.io/badge/-development-blue) |
 | `otlp_grpc_log_exporter` | OTLP log record exporter over gRPC with protobuf serialization | ![Development](https://img.shields.io/badge/-development-blue) |
 | `otlp_grpc_metric_exporter` | OTLP metric exporter over gRPC with protobuf serialization | ![Development](https://img.shields.io/badge/-development-blue) |
 | `otlp_grpc_span_exporter` | OTLP span exporter over gRPC with protobuf serialization | ![Development](https://img.shields.io/badge/-development-blue) |
@@ -1142,10 +1156,10 @@ E.g. for Java the fully qualified classname SHOULD be used in this case.
 | `otlp_http_log_exporter` | OTLP log record exporter over HTTP with protobuf serialization | ![Development](https://img.shields.io/badge/-development-blue) |
 | `otlp_http_metric_exporter` | OTLP metric exporter over HTTP with protobuf serialization | ![Development](https://img.shields.io/badge/-development-blue) |
 | `otlp_http_span_exporter` | OTLP span exporter over HTTP with protobuf serialization | ![Development](https://img.shields.io/badge/-development-blue) |
-| `periodic_metric_reader` | The builtin SDK periodically exporting metric reader | ![Development](https://img.shields.io/badge/-development-blue) |
+| `periodic_metric_reader` | The built-in SDK periodically exporting metric reader | ![Development](https://img.shields.io/badge/-development-blue) |
 | `prometheus_http_text_metric_exporter` | Prometheus metric exporter over HTTP with the default text-based format | ![Development](https://img.shields.io/badge/-development-blue) |
-| `simple_log_processor` | The builtin SDK simple log record processor | ![Development](https://img.shields.io/badge/-development-blue) |
-| `simple_span_processor` | The builtin SDK simple span processor | ![Development](https://img.shields.io/badge/-development-blue) |
+| `simple_log_processor` | The built-in SDK simple log record processor | ![Development](https://img.shields.io/badge/-development-blue) |
+| `simple_span_processor` | The built-in SDK simple span processor | ![Development](https://img.shields.io/badge/-development-blue) |
 | `zipkin_http_span_exporter` | Zipkin span exporter over HTTP | ![Development](https://img.shields.io/badge/-development-blue) |
 
 <!-- prettier-ignore-end -->
@@ -1158,7 +1172,7 @@ E.g. for Java the fully qualified classname SHOULD be used in this case.
 
 This metric is [recommended][MetricRecommended].
 
-This metric SHOULD be specified with [`ExplicitBucketBoundaries` advisory parameter](https://github.com/open-telemetry/opentelemetry-specification/blob/v1.57.0/specification/metrics/api.md#instrument-advisory-parameters) with a single bucket with no boundaries.
+This metric SHOULD be specified with [`ExplicitBucketBoundaries` advisory parameter](https://github.com/open-telemetry/opentelemetry-specification/blob/v1.59.0/specification/metrics/api.md#instrument-advisory-parameters) with a single bucket with no boundaries.
 
 <!-- semconv metric.otel.sdk.metric_reader.collection.duration -->
 <!-- NOTE: THIS TEXT IS AUTOGENERATED. DO NOT EDIT BY HAND. -->
@@ -1237,8 +1251,8 @@ E.g. for Java the fully qualified classname SHOULD be used in this case.
 
 | Value | Description | Stability |
 | --- | --- | --- |
-| `batching_log_processor` | The builtin SDK batching log record processor | ![Development](https://img.shields.io/badge/-development-blue) |
-| `batching_span_processor` | The builtin SDK batching span processor | ![Development](https://img.shields.io/badge/-development-blue) |
+| `batching_log_processor` | The built-in SDK batching log record processor | ![Development](https://img.shields.io/badge/-development-blue) |
+| `batching_span_processor` | The built-in SDK batching span processor | ![Development](https://img.shields.io/badge/-development-blue) |
 | `otlp_grpc_log_exporter` | OTLP log record exporter over gRPC with protobuf serialization | ![Development](https://img.shields.io/badge/-development-blue) |
 | `otlp_grpc_metric_exporter` | OTLP metric exporter over gRPC with protobuf serialization | ![Development](https://img.shields.io/badge/-development-blue) |
 | `otlp_grpc_span_exporter` | OTLP span exporter over gRPC with protobuf serialization | ![Development](https://img.shields.io/badge/-development-blue) |
@@ -1248,10 +1262,10 @@ E.g. for Java the fully qualified classname SHOULD be used in this case.
 | `otlp_http_log_exporter` | OTLP log record exporter over HTTP with protobuf serialization | ![Development](https://img.shields.io/badge/-development-blue) |
 | `otlp_http_metric_exporter` | OTLP metric exporter over HTTP with protobuf serialization | ![Development](https://img.shields.io/badge/-development-blue) |
 | `otlp_http_span_exporter` | OTLP span exporter over HTTP with protobuf serialization | ![Development](https://img.shields.io/badge/-development-blue) |
-| `periodic_metric_reader` | The builtin SDK periodically exporting metric reader | ![Development](https://img.shields.io/badge/-development-blue) |
+| `periodic_metric_reader` | The built-in SDK periodically exporting metric reader | ![Development](https://img.shields.io/badge/-development-blue) |
 | `prometheus_http_text_metric_exporter` | Prometheus metric exporter over HTTP with the default text-based format | ![Development](https://img.shields.io/badge/-development-blue) |
-| `simple_log_processor` | The builtin SDK simple log record processor | ![Development](https://img.shields.io/badge/-development-blue) |
-| `simple_span_processor` | The builtin SDK simple span processor | ![Development](https://img.shields.io/badge/-development-blue) |
+| `simple_log_processor` | The built-in SDK simple log record processor | ![Development](https://img.shields.io/badge/-development-blue) |
+| `simple_span_processor` | The built-in SDK simple span processor | ![Development](https://img.shields.io/badge/-development-blue) |
 | `zipkin_http_span_exporter` | Zipkin span exporter over HTTP | ![Development](https://img.shields.io/badge/-development-blue) |
 
 <!-- prettier-ignore-end -->
@@ -1262,7 +1276,7 @@ E.g. for Java the fully qualified classname SHOULD be used in this case.
 
 This metric is [recommended][MetricRecommended].
 
-This metric SHOULD be specified with [`ExplicitBucketBoundaries` advisory parameter](https://github.com/open-telemetry/opentelemetry-specification/blob/v1.57.0/specification/metrics/api.md#instrument-advisory-parameters) with a single bucket with no boundaries.
+This metric SHOULD be specified with [`ExplicitBucketBoundaries` advisory parameter](https://github.com/open-telemetry/opentelemetry-specification/blob/v1.59.0/specification/metrics/api.md#instrument-advisory-parameters) with a single bucket with no boundaries.
 
 <!-- semconv metric.otel.sdk.exporter.operation.duration -->
 <!-- NOTE: THIS TEXT IS AUTOGENERATED. DO NOT EDIT BY HAND. -->
@@ -1273,9 +1287,12 @@ This metric SHOULD be specified with [`ExplicitBucketBoundaries` advisory parame
 | -------- | --------------- | ----------- | -------------- | --------- | ------ |
 | `otel.sdk.exporter.operation.duration` | Histogram | `s` | The duration of exporting a batch of telemetry records. [1] | ![Development](https://img.shields.io/badge/-development-blue) | |
 
-**[1]:** This metric defines successful operations using the full success definitions for [http](https://github.com/open-telemetry/opentelemetry-proto/blob/v1.5.0/docs/specification.md#full-success-1)
-and [grpc](https://github.com/open-telemetry/opentelemetry-proto/blob/v1.5.0/docs/specification.md#full-success). Anything else is defined as an unsuccessful operation. For successful
+**[1]:** This metric defines successful operations using the full success definitions for [HTTP](https://github.com/open-telemetry/opentelemetry-proto/blob/v1.5.0/docs/specification.md#full-success-1)
+and [gRPC](https://github.com/open-telemetry/opentelemetry-proto/blob/v1.5.0/docs/specification.md#full-success). Anything else is defined as an unsuccessful operation. For successful
 operations, `error.type` MUST NOT be set. For unsuccessful export operations, `error.type` MUST contain a relevant failure cause.
+If the exporter retries failed export attempts, exactly one observation MUST be recorded per export operation,
+covering the wall-clock duration from the start of the first attempt through the conclusion of the final attempt (including any backoff between attempts).
+`error.type` reflects the cause of the final attempt.
 
 **Attributes:**
 
@@ -1286,7 +1303,7 @@ operations, `error.type` MUST NOT be set. For unsuccessful export operations, `e
 | [`otel.component.name`](/docs/registry/attributes/otel.md) | ![Development](https://img.shields.io/badge/-development-blue) | `Recommended` | string | A name uniquely identifying the instance of the OpenTelemetry component within its containing SDK instance. [2] | `otlp_grpc_span_exporter/0`; `custom-name` |
 | [`otel.component.type`](/docs/registry/attributes/otel.md) | ![Development](https://img.shields.io/badge/-development-blue) | `Recommended` | string | A name identifying the type of the OpenTelemetry component. [3] | `otlp_grpc_span_exporter`; `com.example.MySpanExporter` |
 | [`rpc.response.status_code`](/docs/registry/attributes/rpc.md) | ![Release Candidate](https://img.shields.io/badge/-rc-mediumorchid) | `Recommended` when applicable | string | The gRPC status code of the last gRPC request performed in scope of this export call. [4] | `OK`; `DEADLINE_EXCEEDED`; `-32602` |
-| [`server.address`](/docs/registry/attributes/server.md) | ![Stable](https://img.shields.io/badge/-stable-lightgreen) | `Recommended` when applicable | string | Server domain name if available without reverse DNS lookup; otherwise, IP address or Unix domain socket name. [5] | `example.com`; `10.1.2.80`; `/tmp/my.sock` |
+| [`server.address`](/docs/registry/attributes/server.md) | ![Stable](https://img.shields.io/badge/-stable-lightgreen) | `Recommended` when applicable | string | Server domain name if available without reverse DNS lookup; otherwise, IP address or UNIX domain socket name. [5] | `example.com`; `10.1.2.80`; `/tmp/my.sock` |
 | [`server.port`](/docs/registry/attributes/server.md) | ![Stable](https://img.shields.io/badge/-stable-lightgreen) | `Recommended` when applicable | int | Server port number. [6] | `80`; `8080`; `443` |
 
 **[1] `error.type`:** The `error.type` SHOULD be predictable, and SHOULD have low cardinality.
@@ -1353,8 +1370,8 @@ Semantic conventions for individual RPC frameworks SHOULD document what `rpc.res
 
 | Value | Description | Stability |
 | --- | --- | --- |
-| `batching_log_processor` | The builtin SDK batching log record processor | ![Development](https://img.shields.io/badge/-development-blue) |
-| `batching_span_processor` | The builtin SDK batching span processor | ![Development](https://img.shields.io/badge/-development-blue) |
+| `batching_log_processor` | The built-in SDK batching log record processor | ![Development](https://img.shields.io/badge/-development-blue) |
+| `batching_span_processor` | The built-in SDK batching span processor | ![Development](https://img.shields.io/badge/-development-blue) |
 | `otlp_grpc_log_exporter` | OTLP log record exporter over gRPC with protobuf serialization | ![Development](https://img.shields.io/badge/-development-blue) |
 | `otlp_grpc_metric_exporter` | OTLP metric exporter over gRPC with protobuf serialization | ![Development](https://img.shields.io/badge/-development-blue) |
 | `otlp_grpc_span_exporter` | OTLP span exporter over gRPC with protobuf serialization | ![Development](https://img.shields.io/badge/-development-blue) |
@@ -1364,10 +1381,10 @@ Semantic conventions for individual RPC frameworks SHOULD document what `rpc.res
 | `otlp_http_log_exporter` | OTLP log record exporter over HTTP with protobuf serialization | ![Development](https://img.shields.io/badge/-development-blue) |
 | `otlp_http_metric_exporter` | OTLP metric exporter over HTTP with protobuf serialization | ![Development](https://img.shields.io/badge/-development-blue) |
 | `otlp_http_span_exporter` | OTLP span exporter over HTTP with protobuf serialization | ![Development](https://img.shields.io/badge/-development-blue) |
-| `periodic_metric_reader` | The builtin SDK periodically exporting metric reader | ![Development](https://img.shields.io/badge/-development-blue) |
+| `periodic_metric_reader` | The built-in SDK periodically exporting metric reader | ![Development](https://img.shields.io/badge/-development-blue) |
 | `prometheus_http_text_metric_exporter` | Prometheus metric exporter over HTTP with the default text-based format | ![Development](https://img.shields.io/badge/-development-blue) |
-| `simple_log_processor` | The builtin SDK simple log record processor | ![Development](https://img.shields.io/badge/-development-blue) |
-| `simple_span_processor` | The builtin SDK simple span processor | ![Development](https://img.shields.io/badge/-development-blue) |
+| `simple_log_processor` | The built-in SDK simple log record processor | ![Development](https://img.shields.io/badge/-development-blue) |
+| `simple_span_processor` | The built-in SDK simple span processor | ![Development](https://img.shields.io/badge/-development-blue) |
 | `zipkin_http_span_exporter` | Zipkin span exporter over HTTP | ![Development](https://img.shields.io/badge/-development-blue) |
 
 <!-- prettier-ignore-end -->
