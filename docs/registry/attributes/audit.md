@@ -83,7 +83,7 @@ Acceptable forms (in order of preference): a Key ID / `kid` (JOSE header paramet
 
 **[7] `audit.integrity.signer`:** `producer` means the SDK computed the value before export. `collector` means a Tier-2 Collector signed or re-signed the record after receiving it. When absent, `producer` SHOULD be assumed.
 
-**[8] `audit.integrity.value`:** The input to the signing / MAC operation MUST be the canonical serialisation of the `AuditRecord` with all `audit.integrity.*` attributes excluded. The default canonicalization is JCS (RFC 8785); set `audit.integrity.canonicalization` when a different scheme is used. `audit.integrity.algorithm` MUST be set on the emitting Resource whenever this attribute is present.
+**[8] `audit.integrity.value`:** The input to the signing / MAC operation MUST be the canonical serialization of the `AuditRecord` with all `audit.integrity.*` attributes excluded. The default canonicalization is JCS (RFC 8785); set `audit.integrity.canonicalization` when a different scheme is used. `audit.integrity.algorithm` MUST be set on the emitting Resource whenever this attribute is present.
 
 ## Audit Record Attributes
 
