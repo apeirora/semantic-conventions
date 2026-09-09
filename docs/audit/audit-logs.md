@@ -335,29 +335,31 @@ configured timeout. It MUST NOT return successfully without a valid receipt.
 
 The following invariants MUST be respected by every SDK implementation:
 
-| # | Invariant |
-| --- | --- |
-| 1 | `AuditProvider` MUST NOT accept sampler or sampling-rate configuration. |
-| 2 | `emit()` MUST block until the sink acknowledges, or raise a hard error. |
-| 3 | `emit()` MUST return a valid `AuditReceipt`. |
-| 4 | The queue MUST be disk-backed or unbounded in-memory — **never** silently drops. |
-| 5 | Processors are additive-only: MAY enrich; MUST NOT delete, filter, or transform. |
-| 6 | Transport: `POST /v1/audit` with `audit: true` on `ResourceLogs`. |
-| 7 | `partial_success` in a sink response MUST be treated as a hard `Failure`. |
-| 8 | `InstrumentationScope` MUST be left empty. |
-| 9 | SDK exposes metrics: `audit.records.emitted`, `audit.records.exported`, `audit.records.dropped`, `audit.queue.depth`, `audit.export.duration`. |
-| 10 | Non-zero `audit.records.dropped` MUST trigger an operational alert. |
+| #  | Invariant                                                                                                                                      |
+|----|------------------------------------------------------------------------------------------------------------------------------------------------|
+| 1  | `AuditProvider` MUST NOT accept sampler or sampling-rate configuration.                                                                        |
+| 2  | `emit()` MUST block until the sink acknowledges, or raise a hard error.                                                                        |
+| 3  | `emit()` MUST return a valid `AuditReceipt`.                                                                                                   |
+| 4  | The queue MUST be disk-backed or unbounded in-memory — **never** silently drops.                                                               |
+| 5  | Processors are additive-only: MAY enrich; MUST NOT delete, filter, or transform.                                                               |
+| 6  | Transport: `POST /v1/audit` with `audit: true` on `ResourceLogs`.                                                                              |
+| 7  | `partial_success` in a sink response MUST be treated as a hard `Failure`.                                                                      |
+| 8  | `InstrumentationScope` MUST be left empty.                                                                                                     |
+| 9  | SDK exposes metrics: `audit.records.emitted`, `audit.records.exported`, `audit.records.dropped`, `audit.queue.depth`, `audit.export.duration`. |
+| 10 | Non-zero `audit.records.dropped` MUST trigger an operational alert.                                                                            |
+| 11 | `emit()` called on a mandatory attribute missing or empty MUST raise a hard error — MUST NOT silently drop the record.                         |
+| 12 | `emit()` called after `Shutdown` MUST raise a hard error — MUST NOT silently drop the record.                                                  |
 
 ## Compliance mapping
 
-| Requirement | Audit signal feature |
-| --- | --- |
-| ISO 27001 A.8.15 — Logging | All actions recorded; logs protected via integrity attributes. |
-| ISO 27001 A.8.17 — Clock sync | SDK warns when `\|Timestamp − ObservedTimestamp\|` > 5 s. |
-| SOC 2 CC7.2 — Anomaly detection | `audit.records.dropped` metric + operational alert. |
-| PCI-DSS Req. 10.2 — Audit trails | Mandatory attributes cover all required fields; `audit.source.id` for IP. |
-| PCI-DSS Req. 10.5 — Log protection | `audit.integrity.value` + `audit.sequence.previous_hash` hash chain. |
-| HIPAA § 164.312(b) — Audit controls | `audit.actor.*` + `audit.target.*` cover ePHI access logging. |
+| Requirement                         | Audit signal feature                                                      |
+|-------------------------------------|---------------------------------------------------------------------------|
+| ISO 27001 A.8.15 — Logging          | All actions recorded; logs protected via integrity attributes.            |
+| ISO 27001 A.8.17 — Clock sync       | SDK warns when `\|Timestamp − ObservedTimestamp\|` > 5 s.                 |
+| SOC 2 CC7.2 — Anomaly detection     | `audit.records.dropped` metric + operational alert.                       |
+| PCI-DSS Req. 10.2 — Audit trails    | Mandatory attributes cover all required fields; `audit.source.id` for IP. |
+| PCI-DSS Req. 10.5 — Log protection  | `audit.integrity.value` + `audit.sequence.previous_hash` hash chain.      |
+| HIPAA § 164.312(b) — Audit controls | `audit.actor.*` + `audit.target.*` cover ePHI access logging.             |
 
 ## Examples
 
@@ -376,7 +378,7 @@ The following invariants MUST be respected by every SDK implementation:
     "audit.action":      "LOGIN",
     "audit.outcome":     "success",
     "audit.source.id":   "192.0.2.42",
-    "audit.source.type": "ip_address"
+    "audit.source.type": "ipv4"
   }
 }
 ```
@@ -395,19 +397,21 @@ The following invariants MUST be respected by every SDK implementation:
     "audit.integrity.certificate": "key-2024-01"
   },
   "Attributes": {
-    "audit.record.id":        "7c9e6679-7425-40de-944b-e07fc1f90ae7",
-    "audit.actor.id":         "svc-deployer",
-    "audit.actor.type":       "service",
-    "audit.action":           "DELETE",
-    "audit.outcome":          "success",
-    "audit.target.id":        "invoice-8819",
-    "audit.target.type":      "finance.invoice",
-    "audit.source.id":        "device-uuid-abcd1234",
-    "audit.source.type":      "device",
-    "audit.sequence.number":  42,
-    "audit.sequence.previous_hash":        "a3f1c2e4b5d6a7f8e9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2",
-    "audit.integrity.value":  "SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c",
-    "audit.schema.version":   "1.0.0"
+    "audit.record.id":              "7c9e6679-7425-40de-944b-e07fc1f90ae7",
+    "audit.actor.id":               "svc-deployer",
+    "audit.actor.type":             "service",
+    "audit.action":                 "DELETE",
+    "audit.outcome":                "success",
+    "audit.target.id":              "invoice-8819",
+    "audit.target.type":            "finance.invoice",
+    "audit.source.id":              "192.0.2.99",
+    "audit.source.type":            "ipv4",
+    "audit.sequence.stream_id":     "b1d2e3f4-a5b6-7c8d-9e0f-a1b2c3d4e5f6",
+    "audit.sequence.number":        42,
+    "audit.sequence.previous_hash": "a3f1c2e4b5d6a7f8e9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2",
+    "audit.integrity.value":        "SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV+adQssw5c",
+    "audit.integrity.signer":       "producer",
+    "audit.schema.version":         "1.0.0"
   }
 }
 ```
