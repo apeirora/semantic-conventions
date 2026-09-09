@@ -79,7 +79,7 @@ Attributes that provide cryptographic evidence that the audit record has not bee
 **[5] `audit.integrity.canonicalization`:** Defaults to `jcs` (RFC 8785 JSON Canonicalization Scheme). Set explicitly when any other canonicalization is used so that verifiers can reproduce the exact byte sequence that was signed. MUST be omitted when `jcs` is used.
 
 **[6] `audit.integrity.certificate`:** MUST be set as a Resource attribute (together with `audit.integrity.algorithm`) whenever `audit.integrity.value` is present on any record emitted by this resource. Because a service instance uses a single signing key for its entire lifetime, both `audit.integrity.algorithm` and `audit.integrity.certificate` are constant across all records from the same resource and therefore belong on the Resource, not on individual records.
-Acceptable forms (in order of preference): a Key ID / `kid` (JOSE header parameter), a DER-encoded X.509 certificate Base64-encoded, an X.509 certificate fingerprint (SHA-256 hex), or an Issuer + Serial Number pair. Receivers MUST NOT use this field alone for trust decisions; key validation MUST be performed out-of-band.
+Acceptable forms (in order of preference): a Key ID / `kid` (JOSE header parameter), a DER-encoded X.509 certificate base64-encoded, an X.509 certificate fingerprint (SHA-256 hex), or an Issuer + Serial Number pair. Receivers MUST NOT use this field alone for trust decisions; key validation MUST be performed out-of-band.
 
 **[7] `audit.integrity.signer`:** `producer` means the SDK computed the value before export. `collector` means a Tier-2 Collector signed or re-signed the record after receiving it. When absent, `producer` SHOULD be assumed.
 
