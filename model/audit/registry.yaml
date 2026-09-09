@@ -28,7 +28,8 @@ groups:
           The version of the audit semantic conventions schema used by this record.
         note: >
           Follows semantic versioning (MAJOR.MINOR.PATCH). Receivers MAY use this
-          value to select an appropriate validation schema.
+          value to select the matching validation schema for the record's attribute
+          vocabulary.
         examples: ["1.0.0", "1.2.0"]
 
   # ---------------------------------------------------------------------------
@@ -266,8 +267,7 @@ groups:
         note: >
           Defaults to `jcs` (RFC 8785 JSON Canonicalization Scheme). Set explicitly
           when any other canonicalization is used so that verifiers can reproduce the
-          exact byte sequence that was signed. MUST be omitted when `jcs` is used and
-          the default is sufficient.
+          exact byte sequence that was signed. MUST be omitted when `jcs` is used.
         examples: ["jcs"]
 
       - id: audit.integrity.algorithm
@@ -378,8 +378,6 @@ groups:
           An opaque identifier that scopes the hash chain to a single audit stream.
         note: >
           The SDK SHOULD generate a UUID v4 once per `AuditLogger` instance and
-          include it on every record emitted by that logger. Allows multiple
-          concurrent streams from the same resource to be distinguished by sinks
-          and Collectors.
+          include it on every record emitted by that logger.
         examples:
           - "7c9e6679-7425-40de-944b-e07fc1f90ae7"

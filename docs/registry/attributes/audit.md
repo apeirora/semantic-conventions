@@ -76,14 +76,14 @@ Attributes that provide cryptographic evidence that the audit record has not bee
 
 **[4] `audit.integrity.algorithm`:** MUST be set as a Resource attribute whenever `audit.integrity.value` is present on any record emitted by this resource. Use a JWA identifier (RFC 7518) for asymmetric signatures (e.g. `ES256`, `RS256`, `EdDSA`) or an IANA MAC Algorithm identifier for symmetric MACs (e.g. `HMAC-SHA256`).
 
-**[5] `audit.integrity.canonicalization`:** Defaults to `jcs` (RFC 8785 JSON Canonicalization Scheme). Set explicitly when any other canonicalization is used so that verifiers can reproduce the exact byte sequence that was signed. MUST be omitted when `jcs` is used and the default is sufficient.
+**[5] `audit.integrity.canonicalization`:** Defaults to `jcs` (RFC 8785 JSON Canonicalization Scheme). Set explicitly when any other canonicalization is used so that verifiers can reproduce the exact byte sequence that was signed. MUST be omitted when `jcs` is used.
 
 **[6] `audit.integrity.certificate`:** MUST be set as a Resource attribute (together with `audit.integrity.algorithm`) whenever `audit.integrity.value` is present on any record emitted by this resource. Because a service instance uses a single signing key for its entire lifetime, both `audit.integrity.algorithm` and `audit.integrity.certificate` are constant across all records from the same resource and therefore belong on the Resource, not on individual records.
 Acceptable forms (in order of preference): a Key ID / `kid` (JOSE header parameter), a DER-encoded X.509 certificate Base64url-encoded, an X.509 certificate fingerprint (SHA-256 hex), or an Issuer + Serial Number pair. Receivers MUST NOT use this field alone for trust decisions; key validation MUST be performed out-of-band.
 
 **[7] `audit.integrity.signer`:** `producer` means the SDK computed the value before export. `collector` means a Tier-2 Collector signed or re-signed the record after receiving it. When absent, `producer` SHOULD be assumed.
 
-**[8] `audit.integrity.value`:** The exact input to the signing / MAC operation MUST be the JCS (RFC 8785) canonical JSON serialisation of the `AuditRecord` with all `audit.integrity.*` attributes excluded. `audit.integrity.algorithm` MUST be set on the emitting Resource whenever this attribute is present.
+**[8] `audit.integrity.value`:** The input to the signing / MAC operation MUST be the canonical serialisation of the `AuditRecord` with all `audit.integrity.*` attributes excluded. The default canonicalization is JCS (RFC 8785); set `audit.integrity.canonicalization` when a different scheme is used. `audit.integrity.algorithm` MUST be set on the emitting Resource whenever this attribute is present.
 
 ## Audit Record Attributes
 
@@ -98,7 +98,7 @@ Attributes that uniquely identify and version an audit record.
 
 **[9] `audit.record.id`:** The SDK MUST auto-generate a UUID v4 when the caller omits this field. The value MUST remain identical across all retries of the same record. Records with the same `audit.record.id` and identical payload hash are treated as idempotent duplicates by compliant sinks.
 
-**[10] `audit.schema.version`:** Follows semantic versioning (MAJOR.MINOR.PATCH). Receivers MAY use this value to select an appropriate validation schema.
+**[10] `audit.schema.version`:** Follows semantic versioning (MAJOR.MINOR.PATCH). Receivers MAY use this value to select the matching validation schema for the record's attribute vocabulary.
 
 ## Audit Sequence Attributes
 
@@ -122,7 +122,7 @@ Attributes that link audit records into an ordered, tamper-evident chain within 
 
 **[14] `audit.sequence.prev_record_id`:** Provides a resolvable locator for the predecessor across shards, storage systems, and retention boundaries, complementing `audit.sequence.prev_hash`. MUST be omitted on the genesis (first) record of a stream.
 
-**[15] `audit.sequence.stream_id`:** The SDK SHOULD generate a UUID v4 once per `AuditLogger` instance and include it on every record emitted by that logger. Allows multiple concurrent streams from the same resource to be distinguished by sinks and Collectors.
+**[15] `audit.sequence.stream_id`:** The SDK SHOULD generate a UUID v4 once per `AuditLogger` instance and include it on every record emitted by that logger.
 
 ## Audit Source Attributes
 
