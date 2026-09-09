@@ -139,7 +139,7 @@ namespace.
 
 **[1] `audit.action`:** SHOULD be an uppercase verb from a controlled vocabulary where possible. Well-known values include `LOGIN`, `LOGOUT`, `READ`, `CREATE`, `UPDATE`, `DELETE`, `GRANT`, `REVOKE`, `EXPORT`, `IMPORT`, `EXECUTE`, `APPROVE`, `REJECT`. Custom values MAY be used when none of the well-known values applies, but SHOULD be documented in the producing service's changelog.
 
-**[2] `audit.actor.id`:** This SHOULD be an opaque, durable identifier (e.g. a user-UUID, service account name, or IAM principal ARN) that remains stable across sessions. Avoid using mutable display names or email addresses as the primary id.
+**[2] `audit.actor.id`:** This SHOULD be an opaque, durable identifier (e.g. a user-UUID, service account name, or IAM principal ARN) that remains stable across sessions. Avoid using mutable display names or email addresses as the primary ID.
 
 **[3] `audit.record.id`:** The SDK MUST auto-generate a UUID v4 when the caller omits this field. The value MUST remain identical across all retries of the same record. Records with the same `audit.record.id` and identical payload hash are treated as idempotent duplicates by compliant sinks.
 
@@ -180,7 +180,7 @@ Acceptable forms (in order of preference): a Key ID / `kid` (JOSE header paramet
 
 **[21] `audit.source.id`:** When the network origin or calling device of the action is known and meaningful for compliance review (e.g. PCI-DSS access logging).
 
-**[22] `audit.source.id`:** MAY be an IP address, a device UUID, or a service mesh endpoint id. Prefer stable identifiers (device UUID) over ephemeral ones (IP address) when both are available.
+**[22] `audit.source.id`:** MAY be an IP address, a device UUID, or a service mesh endpoint ID. Prefer stable identifiers (device UUID) over ephemeral ones (IP address) when both are available.
 
 **[23] `audit.source.type`:** Well-known values: `ipv4`, `ipv6`, `hostname`. Custom values MAY be used.
 
@@ -194,7 +194,7 @@ Acceptable forms (in order of preference): a Key ID / `kid` (JOSE header paramet
 
 **[28] `audit.actor.name`:** MAY be a login name, email address, or display name. This value is informational only; use `audit.actor.id` for stable identity correlation.
 
-**[29] `audit.integrity.value`:** The input to the signing / MAC operation MUST be the canonical serialisation of the `AuditRecord` with all `audit.integrity.*` attributes excluded. The default canonicalization is JCS (RFC 8785); set `audit.integrity.canonicalization` when a different scheme is used. `audit.integrity.algorithm` MUST be set on the emitting Resource whenever this attribute is present.
+**[29] `audit.integrity.value`:** The input to the signing / MAC operation MUST be the canonical serialization of the `AuditRecord` with all `audit.integrity.*` attributes excluded. The default canonicalization is JCS (RFC 8785); set `audit.integrity.canonicalization` when a different scheme is used. `audit.integrity.algorithm` MUST be set on the emitting Resource whenever this attribute is present.
 
 **[30] `audit.schema.version`:** Follows semantic versioning (MAJOR.MINOR.PATCH). Receivers MAY use this value to select the matching validation schema for the record's attribute vocabulary.
 
