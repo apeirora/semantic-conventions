@@ -215,12 +215,12 @@ groups:
         brief: >
           The category of origin that initiated the action.
         note: >
-          Well-known values: `ip_address`, `device`, `service_mesh_node`.
+          Well-known values: `ipv4`, `ipv6`, `hostname`.
           Custom values MAY be used.
         examples:
-          - "ip_address"
-          - "device"
-          - "service_mesh_node"
+          - "ipv4"
+          - "ipv6"
+          - "hostname"
 
   # ---------------------------------------------------------------------------
   # audit.integrity — cryptographic tamper-evidence
@@ -236,14 +236,39 @@ groups:
         type: string
         stability: development
         brief: >
-          Base64url-encoded cryptographic signature or MAC covering this record.
+          Base64-encoded cryptographic signature or MAC covering this record.
         note: >
-          The exact input to the signing / MAC operation MUST be the canonical
-          serialisation of the `AuditRecord` with `audit.integrity.value` absent.
-          `audit.integrity.algorithm` MUST be set on the emitting Resource whenever
-          this attribute is present.
+          The input to the signing / MAC operation MUST be the canonical
+          serialisation of the `AuditRecord` with all `audit.integrity.*`
+          attributes excluded. The default canonicalization is JCS (RFC 8785);
+          set `audit.integrity.canonicalization` when a different scheme is used.
+          `audit.integrity.algorithm` MUST be set on the emitting Resource
+          whenever this attribute is present.
         examples:
           - "SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+
+      - id: audit.integrity.signer
+        type: string
+        stability: development
+        brief: >
+          Identifies which tier produced the integrity proof in `audit.integrity.value`.
+        note: >
+          `producer` means the SDK computed the value before export. `collector`
+          means a Tier-2 Collector signed or re-signed the record after receiving it.
+          When absent, `producer` SHOULD be assumed.
+        examples: ["producer", "collector"]
+
+      - id: audit.integrity.canonicalization
+        type: string
+        stability: development
+        brief: >
+          The canonicalization scheme applied to the record before signing or MACing.
+        note: >
+          Defaults to `jcs` (RFC 8785 JSON Canonicalization Scheme). Set explicitly
+          when any other canonicalization is used so that verifiers can reproduce the
+          exact byte sequence that was signed. MUST be omitted when `jcs` is used and
+          the default is sufficient.
+        examples: ["jcs"]
 
       - id: audit.integrity.algorithm
         type: string
@@ -316,9 +341,45 @@ groups:
         note: >
           Including the previous record's sink-acknowledged hash in the current
           record creates an append-only hash chain. Any retroactive modification
-          of a record is detectable by re-verifying the chain. Set to the all-zeros
-          string `"0000000000000000000000000000000000000000000000000000000000000000"`
-          for the first record in a stream.
+          of a record is detectable by re-verifying the chain. MUST be omitted on
+          the genesis (first) record of a stream — absence is the normative signal;
+          no magic sentinel constant is required.
         examples:
           - "a3f1c2e4b5d6a7f8e9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2"
-          - "0000000000000000000000000000000000000000000000000000000000000000"
+
+      - id: audit.sequence.prev_record_id
+        type: string
+        stability: development
+        brief: >
+          The `audit.record.id` of the immediately preceding record in the same
+          audit stream.
+        note: >
+          Provides a resolvable locator for the predecessor across shards, storage
+          systems, and retention boundaries, complementing `audit.sequence.prev_hash`.
+          MUST be omitted on the genesis (first) record of a stream.
+        examples:
+          - "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+
+      - id: audit.sequence.end
+        type: boolean
+        stability: development
+        brief: >
+          Set to `true` on the last record of a gracefully closed audit stream.
+        note: >
+          Emitted by the SDK during `ForceFlush` or `Shutdown` to mark the terminal
+          record of a stream. Absence is normal for all intermediate records — do not
+          treat absence as an error.
+        examples: [true]
+
+      - id: audit.sequence.stream_id
+        type: string
+        stability: development
+        brief: >
+          An opaque identifier that scopes the hash chain to a single audit stream.
+        note: >
+          The SDK SHOULD generate a UUID v4 once per `AuditLogger` instance and
+          include it on every record emitted by that logger. Allows multiple
+          concurrent streams from the same resource to be distinguished by sinks
+          and Collectors.
+        examples:
+          - "7c9e6679-7425-40de-944b-e07fc1f90ae7"

@@ -120,17 +120,22 @@ namespace.
 | [`audit.outcome`](/docs/registry/attributes/audit.md) | ![Development](https://img.shields.io/badge/-development-blue) | `Required` | string | The result of the auditable action. | `success`; `failure`; `unknown` |
 | [`audit.record.id`](/docs/registry/attributes/audit.md) | ![Development](https://img.shields.io/badge/-development-blue) | `Required` | string | A stable, globally unique identifier for this audit record. [3] | `3fa85f64-5717-4562-b3fc-2c963f66afa6` |
 | [`audit.integrity.algorithm`](/docs/registry/attributes/audit.md) | ![Development](https://img.shields.io/badge/-development-blue) | `Conditionally Required` [4] | string | The algorithm used to compute `audit.integrity.value`. [5] | `ES256`; `EdDSA`; `HMAC-SHA256` |
-| [`audit.integrity.certificate`](/docs/registry/attributes/audit.md) | ![Development](https://img.shields.io/badge/-development-blue) | `Conditionally Required` [6] | string | A reference to the key or certificate used for `audit.integrity.value`. [7] | `key-2024-01`; `SHA256:ab12cd34...` |
-| [`audit.sequence.number`](/docs/registry/attributes/audit.md) | ![Development](https://img.shields.io/badge/-development-blue) | `Recommended` [8] | int | A monotonically increasing counter assigned to each record within a single audit stream. [9] | `1`; `42`; `1000001` |
-| [`audit.sequence.prev_hash`](/docs/registry/attributes/audit.md) | ![Development](https://img.shields.io/badge/-development-blue) | `Recommended` [10] | string | SHA-256 hex digest of the `IntegrityHash` field of the immediately preceding record in the same audit stream. [11] | `a3f1c2e4b5d6a7f8e9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2`; `0000000000000000000000000000000000000000000000000000000000000000` |
-| [`audit.source.id`](/docs/registry/attributes/audit.md) | ![Development](https://img.shields.io/badge/-development-blue) | `Recommended` [12] | string | A stable identifier for the source system or network endpoint that originated the action. [13] | `192.0.2.42`; `device-uuid-abcd1234` |
-| [`audit.source.type`](/docs/registry/attributes/audit.md) | ![Development](https://img.shields.io/badge/-development-blue) | `Recommended` When `audit.source.id` is present. | string | The category of origin that initiated the action. [14] | `ip_address`; `device`; `service_mesh_node` |
-| [`audit.target.id`](/docs/registry/attributes/audit.md) | ![Development](https://img.shields.io/badge/-development-blue) | `Recommended` [15] | string | The stable identifier of the resource that was the target of the action. [16] | `document-42`; `arn:aws:s3:::my-bucket/key`; `/api/v1/users/9f81` |
-| [`audit.target.type`](/docs/registry/attributes/audit.md) | ![Development](https://img.shields.io/badge/-development-blue) | `Recommended` [17] | string | The type or resource kind of the target. [18] | `User`; `apps/v1/Deployment`; `finance.invoice` |
-| [`audit.actor.name`](/docs/registry/attributes/audit.md) | ![Development](https://img.shields.io/badge/-development-blue) | `Opt-In` | string | A human-readable display name or username of the actor. [19] | `alice`; `alice@example.com`; `Alice Smith` |
-| [`audit.integrity.value`](/docs/registry/attributes/audit.md) | ![Development](https://img.shields.io/badge/-development-blue) | `Opt-In` | string | Base64url-encoded cryptographic signature or MAC covering this record. [20] | `SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c` |
-| [`audit.schema.version`](/docs/registry/attributes/audit.md) | ![Development](https://img.shields.io/badge/-development-blue) | `Opt-In` | string | The version of the audit semantic conventions schema used by this record. [21] | `1.0.0`; `1.2.0` |
-| [`audit.target.name`](/docs/registry/attributes/audit.md) | ![Development](https://img.shields.io/badge/-development-blue) | `Opt-In` | string | A human-readable name or label of the target resource. [22] | `production-deploy`; `Q1-invoice-7734` |
+| [`audit.integrity.canonicalization`](/docs/registry/attributes/audit.md) | ![Development](https://img.shields.io/badge/-development-blue) | `Conditionally Required` [6] | string | The canonicalization scheme applied to the record before signing or MACing. [7] | `jcs` |
+| [`audit.integrity.certificate`](/docs/registry/attributes/audit.md) | ![Development](https://img.shields.io/badge/-development-blue) | `Conditionally Required` [8] | string | A reference to the key or certificate used for `audit.integrity.value`. [9] | `key-2024-01`; `SHA256:ab12cd34...` |
+| [`audit.sequence.end`](/docs/registry/attributes/audit.md) | ![Development](https://img.shields.io/badge/-development-blue) | `Conditionally Required` [10] | boolean | Set to `true` on the last record of a gracefully closed audit stream. [11] | `true` |
+| [`audit.integrity.signer`](/docs/registry/attributes/audit.md) | ![Development](https://img.shields.io/badge/-development-blue) | `Recommended` When `audit.integrity.value` is present. | string | Identifies which tier produced the integrity proof in `audit.integrity.value`. [12] | `producer`; `collector` |
+| [`audit.sequence.number`](/docs/registry/attributes/audit.md) | ![Development](https://img.shields.io/badge/-development-blue) | `Recommended` [13] | int | A monotonically increasing counter assigned to each record within a single audit stream. [14] | `1`; `42`; `1000001` |
+| [`audit.sequence.prev_hash`](/docs/registry/attributes/audit.md) | ![Development](https://img.shields.io/badge/-development-blue) | `Recommended` [15] | string | SHA-256 hex digest of the `IntegrityHash` field of the immediately preceding record in the same audit stream. [16] | `a3f1c2e4b5d6a7f8e9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2` |
+| [`audit.sequence.prev_record_id`](/docs/registry/attributes/audit.md) | ![Development](https://img.shields.io/badge/-development-blue) | `Recommended` [17] | string | The `audit.record.id` of the immediately preceding record in the same audit stream. [18] | `3fa85f64-5717-4562-b3fc-2c963f66afa6` |
+| [`audit.sequence.stream_id`](/docs/registry/attributes/audit.md) | ![Development](https://img.shields.io/badge/-development-blue) | `Recommended` [19] | string | An opaque identifier that scopes the hash chain to a single audit stream. [20] | `7c9e6679-7425-40de-944b-e07fc1f90ae7` |
+| [`audit.source.id`](/docs/registry/attributes/audit.md) | ![Development](https://img.shields.io/badge/-development-blue) | `Recommended` [21] | string | A stable identifier for the source system or network endpoint that originated the action. [22] | `192.0.2.42`; `device-uuid-abcd1234` |
+| [`audit.source.type`](/docs/registry/attributes/audit.md) | ![Development](https://img.shields.io/badge/-development-blue) | `Recommended` When `audit.source.id` is present. | string | The category of origin that initiated the action. [23] | `ipv4`; `ipv6`; `hostname` |
+| [`audit.target.id`](/docs/registry/attributes/audit.md) | ![Development](https://img.shields.io/badge/-development-blue) | `Recommended` [24] | string | The stable identifier of the resource that was the target of the action. [25] | `document-42`; `arn:aws:s3:::my-bucket/key`; `/api/v1/users/9f81` |
+| [`audit.target.type`](/docs/registry/attributes/audit.md) | ![Development](https://img.shields.io/badge/-development-blue) | `Recommended` [26] | string | The type or resource kind of the target. [27] | `User`; `apps/v1/Deployment`; `finance.invoice` |
+| [`audit.actor.name`](/docs/registry/attributes/audit.md) | ![Development](https://img.shields.io/badge/-development-blue) | `Opt-In` | string | A human-readable display name or username of the actor. [28] | `alice`; `alice@example.com`; `Alice Smith` |
+| [`audit.integrity.value`](/docs/registry/attributes/audit.md) | ![Development](https://img.shields.io/badge/-development-blue) | `Opt-In` | string | Base64-encoded cryptographic signature or MAC covering this record. [29] | `SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c` |
+| [`audit.schema.version`](/docs/registry/attributes/audit.md) | ![Development](https://img.shields.io/badge/-development-blue) | `Opt-In` | string | The version of the audit semantic conventions schema used by this record. [30] | `1.0.0`; `1.2.0` |
+| [`audit.target.name`](/docs/registry/attributes/audit.md) | ![Development](https://img.shields.io/badge/-development-blue) | `Opt-In` | string | A human-readable name or label of the target resource. [31] | `production-deploy`; `Q1-invoice-7734` |
 
 **[1] `audit.action`:** SHOULD be an uppercase verb from a controlled vocabulary where possible. Well-known values include `LOGIN`, `LOGOUT`, `READ`, `CREATE`, `UPDATE`, `DELETE`, `GRANT`, `REVOKE`, `EXPORT`, `IMPORT`, `EXECUTE`, `APPROVE`, `REJECT`. Custom values MAY be used when none of the well-known values applies, but SHOULD be documented in the producing service's changelog.
 
@@ -142,40 +147,58 @@ namespace.
 
 **[5] `audit.integrity.algorithm`:** MUST be set as a Resource attribute whenever `audit.integrity.value` is present on any record emitted by this resource. Use a JWA identifier (RFC 7518) for asymmetric signatures (e.g. `ES256`, `RS256`, `EdDSA`) or an IANA MAC Algorithm identifier for symmetric MACs (e.g. `HMAC-SHA256`).
 
-**[6] `audit.integrity.certificate`:** Required (as a Resource attribute, together with `audit.integrity.algorithm`) when `audit.integrity.value` is present on any record emitted from this resource.
+**[6] `audit.integrity.canonicalization`:** Required when a canonicalization scheme other than `jcs` (RFC 8785) is used. Omit when `jcs` is used.
 
-**[7] `audit.integrity.certificate`:** MUST be set as a Resource attribute (together with `audit.integrity.algorithm`) whenever `audit.integrity.value` is present on any record emitted by this resource. Because a service instance uses a single signing key for its entire lifetime, both `audit.integrity.algorithm` and `audit.integrity.certificate` are constant across all records from the same resource and therefore belong on the Resource, not on individual records.
+**[7] `audit.integrity.canonicalization`:** Defaults to `jcs` (RFC 8785 JSON Canonicalization Scheme). Set explicitly when any other canonicalization is used so that verifiers can reproduce the exact byte sequence that was signed. MUST be omitted when `jcs` is used and the default is sufficient.
+
+**[8] `audit.integrity.certificate`:** Required (as a Resource attribute, together with `audit.integrity.algorithm`) when `audit.integrity.value` is present on any record emitted from this resource.
+
+**[9] `audit.integrity.certificate`:** MUST be set as a Resource attribute (together with `audit.integrity.algorithm`) whenever `audit.integrity.value` is present on any record emitted by this resource. Because a service instance uses a single signing key for its entire lifetime, both `audit.integrity.algorithm` and `audit.integrity.certificate` are constant across all records from the same resource and therefore belong on the Resource, not on individual records.
 Acceptable forms (in order of preference): a Key ID / `kid` (JOSE header parameter), a DER-encoded X.509 certificate Base64url-encoded, an X.509 certificate fingerprint (SHA-256 hex), or an Issuer + Serial Number pair. Receivers MUST NOT use this field alone for trust decisions; key validation MUST be performed out-of-band.
 
-**[8] `audit.sequence.number`:** When the emitting service maintains a monotonic per-stream counter. Required when `audit.sequence.prev_hash` is present.
+**[10] `audit.sequence.end`:** Required on the final record of a gracefully closed stream (emitted during `ForceFlush` or `Shutdown`). Omit on all other records.
 
-**[9] `audit.sequence.number`:** Compliant sinks and Tier-2 Collectors MUST verify that consecutive records within the same stream have strictly increasing sequence numbers. Gaps MUST trigger a gap-detection warning and a security event log entry. The counter SHOULD start at 1 and increment by 1 per emitted record, but implementations MAY use a larger step if records can be emitted concurrently from multiple threads.
+**[11] `audit.sequence.end`:** Emitted by the SDK during `ForceFlush` or `Shutdown` to mark the terminal record of a stream. Absence is normal for all intermediate records — do not treat absence as an error.
 
-**[10] `audit.sequence.prev_hash`:** When the emitting service implements a hash chain for tamper detection. Requires `audit.sequence.number` to be present.
+**[12] `audit.integrity.signer`:** `producer` means the SDK computed the value before export. `collector` means a Tier-2 Collector signed or re-signed the record after receiving it. When absent, `producer` SHOULD be assumed.
 
-**[11] `audit.sequence.prev_hash`:** Including the previous record's sink-acknowledged hash in the current record creates an append-only hash chain. Any retroactive modification of a record is detectable by re-verifying the chain. Set to the all-zeros string `"0000000000000000000000000000000000000000000000000000000000000000"` for the first record in a stream.
+**[13] `audit.sequence.number`:** When the emitting service maintains a monotonic per-stream counter. Required when `audit.sequence.prev_hash` is present.
 
-**[12] `audit.source.id`:** When the network origin or calling device of the action is known and meaningful for compliance review (e.g. PCI-DSS access logging).
+**[14] `audit.sequence.number`:** Compliant sinks and Tier-2 Collectors MUST verify that consecutive records within the same stream have strictly increasing sequence numbers. Gaps MUST trigger a gap-detection warning and a security event log entry. The counter SHOULD start at 1 and increment by 1 per emitted record, but implementations MAY use a larger step if records can be emitted concurrently from multiple threads.
 
-**[13] `audit.source.id`:** MAY be an IP address, a device UUID, or a service mesh endpoint id. Prefer stable identifiers (device UUID) over ephemeral ones (IP address) when both are available.
+**[15] `audit.sequence.prev_hash`:** When the emitting service implements a hash chain for tamper detection. Requires `audit.sequence.number` to be present. MUST be omitted on the genesis record of a stream.
 
-**[14] `audit.source.type`:** Well-known values: `ip_address`, `device`, `service_mesh_node`. Custom values MAY be used.
+**[16] `audit.sequence.prev_hash`:** Including the previous record's sink-acknowledged hash in the current record creates an append-only hash chain. Any retroactive modification of a record is detectable by re-verifying the chain. MUST be omitted on the genesis (first) record of a stream — absence is the normative signal; no magic sentinel constant is required.
 
-**[15] `audit.target.id`:** When the action is performed on a specific, identifiable resource.
+**[17] `audit.sequence.prev_record_id`:** When `audit.sequence.prev_hash` is present. Provides a resolvable locator for the predecessor record across storage boundaries. MUST be omitted on the genesis record of a stream.
 
-**[16] `audit.target.id`:** SHOULD be the primary key, ARN, URI, or equivalent durable identifier of the resource. When acting on a collection rather than a single resource, this MAY contain the collection identifier.
+**[18] `audit.sequence.prev_record_id`:** Provides a resolvable locator for the predecessor across shards, storage systems, and retention boundaries, complementing `audit.sequence.prev_hash`. MUST be omitted on the genesis (first) record of a stream.
 
-**[17] `audit.target.type`:** When `audit.target.id` is present and the resource kind adds meaningful context for audit review.
+**[19] `audit.sequence.stream_id`:** When the emitting service uses hash-chain ordering. Scopes the chain to a single `AuditLogger` instance.
 
-**[18] `audit.target.type`:** SHOULD use a fully-qualified type where available (e.g. a Kubernetes GroupVersionResource or an IAM resource type). For domain-specific types a short qualified name MAY be used (e.g. `finance.invoice`).
+**[20] `audit.sequence.stream_id`:** The SDK SHOULD generate a UUID v4 once per `AuditLogger` instance and include it on every record emitted by that logger. Allows multiple concurrent streams from the same resource to be distinguished by sinks and Collectors.
 
-**[19] `audit.actor.name`:** MAY be a login name, email address, or display name. This value is informational only; use `audit.actor.id` for stable identity correlation.
+**[21] `audit.source.id`:** When the network origin or calling device of the action is known and meaningful for compliance review (e.g. PCI-DSS access logging).
 
-**[20] `audit.integrity.value`:** The exact input to the signing / MAC operation MUST be the canonical serialisation of the `AuditRecord` with `audit.integrity.value` absent. `audit.integrity.algorithm` MUST be set on the emitting Resource whenever this attribute is present.
+**[22] `audit.source.id`:** MAY be an IP address, a device UUID, or a service mesh endpoint id. Prefer stable identifiers (device UUID) over ephemeral ones (IP address) when both are available.
 
-**[21] `audit.schema.version`:** Follows semantic versioning (MAJOR.MINOR.PATCH). Receivers MAY use this value to select an appropriate validation schema.
+**[23] `audit.source.type`:** Well-known values: `ipv4`, `ipv6`, `hostname`. Custom values MAY be used.
 
-**[22] `audit.target.name`:** Informational only. Use `audit.target.id` for stable identity correlation.
+**[24] `audit.target.id`:** When the action is performed on a specific, identifiable resource.
+
+**[25] `audit.target.id`:** SHOULD be the primary key, ARN, URI, or equivalent durable identifier of the resource. When acting on a collection rather than a single resource, this MAY contain the collection identifier.
+
+**[26] `audit.target.type`:** When `audit.target.id` is present and the resource kind adds meaningful context for audit review.
+
+**[27] `audit.target.type`:** SHOULD use a fully-qualified type where available (e.g. a Kubernetes GroupVersionResource or an IAM resource type). For domain-specific types a short qualified name MAY be used (e.g. `finance.invoice`).
+
+**[28] `audit.actor.name`:** MAY be a login name, email address, or display name. This value is informational only; use `audit.actor.id` for stable identity correlation.
+
+**[29] `audit.integrity.value`:** The exact input to the signing / MAC operation MUST be the JCS (RFC 8785) canonical JSON serialisation of the `AuditRecord` with all `audit.integrity.*` attributes excluded. `audit.integrity.algorithm` MUST be set on the emitting Resource whenever this attribute is present.
+
+**[30] `audit.schema.version`:** Follows semantic versioning (MAJOR.MINOR.PATCH). Receivers MAY use this value to select an appropriate validation schema.
+
+**[31] `audit.target.name`:** Informational only. Use `audit.target.id` for stable identity correlation.
 
 ---
 
