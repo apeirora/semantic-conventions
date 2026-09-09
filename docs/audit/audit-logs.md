@@ -289,7 +289,7 @@ was not altered in transit.
   its entire lifetime, so both values are constant across all records emitted
   by the same resource. They MUST NOT be placed on individual records.
 - `audit.integrity.value` is the per-record Base64url-encoded signature/MAC
-  over the canonical serialisation of the record (with `audit.integrity.value`
+  over the canonical serialization of the record (with `audit.integrity.value`
   itself absent from the input).
 - On acknowledgement, the sink returns an `AuditReceipt` containing an
   `IntegrityHash` (SHA-256 of the persisted record). The emitter SHOULD
@@ -412,4 +412,4 @@ The following invariants MUST be respected by every SDK implementation:
 }
 ```
 
-[DocumentStatus]: https://opentelemetry.io/docs/specs/otel/document-status
+[DocumentStatus]: https://opentelemetry.io/docs/specs/otel/document-status/
