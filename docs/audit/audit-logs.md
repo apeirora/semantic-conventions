@@ -149,7 +149,7 @@ namespace.
 
 **[6] `audit.integrity.canonicalization`:** Required when a canonicalization scheme other than `jcs` (RFC 8785) is used. Omit when `jcs` is used.
 
-**[7] `audit.integrity.canonicalization`:** Defaults to `jcs` (RFC 8785 JSON Canonicalization Scheme). Set explicitly when any other canonicalization is used so that verifiers can reproduce the exact byte sequence that was signed. MUST be omitted when `jcs` is used and the default is sufficient.
+**[7] `audit.integrity.canonicalization`:** Defaults to `jcs` (RFC 8785 JSON Canonicalization Scheme). Set explicitly when any other canonicalization is used so that verifiers can reproduce the exact byte sequence that was signed. MUST be omitted when `jcs` is used.
 
 **[8] `audit.integrity.certificate`:** Required (as a Resource attribute, together with `audit.integrity.algorithm`) when `audit.integrity.value` is present on any record emitted from this resource.
 
@@ -176,7 +176,7 @@ Acceptable forms (in order of preference): a Key ID / `kid` (JOSE header paramet
 
 **[19] `audit.sequence.stream_id`:** When the emitting service uses hash-chain ordering. Scopes the chain to a single `AuditLogger` instance.
 
-**[20] `audit.sequence.stream_id`:** The SDK SHOULD generate a UUID v4 once per `AuditLogger` instance and include it on every record emitted by that logger. Allows multiple concurrent streams from the same resource to be distinguished by sinks and Collectors.
+**[20] `audit.sequence.stream_id`:** The SDK SHOULD generate a UUID v4 once per `AuditLogger` instance and include it on every record emitted by that logger.
 
 **[21] `audit.source.id`:** When the network origin or calling device of the action is known and meaningful for compliance review (e.g. PCI-DSS access logging).
 
@@ -194,9 +194,9 @@ Acceptable forms (in order of preference): a Key ID / `kid` (JOSE header paramet
 
 **[28] `audit.actor.name`:** MAY be a login name, email address, or display name. This value is informational only; use `audit.actor.id` for stable identity correlation.
 
-**[29] `audit.integrity.value`:** The exact input to the signing / MAC operation MUST be the JCS (RFC 8785) canonical JSON serialisation of the `AuditRecord` with all `audit.integrity.*` attributes excluded. `audit.integrity.algorithm` MUST be set on the emitting Resource whenever this attribute is present.
+**[29] `audit.integrity.value`:** The input to the signing / MAC operation MUST be the canonical serialisation of the `AuditRecord` with all `audit.integrity.*` attributes excluded. The default canonicalization is JCS (RFC 8785); set `audit.integrity.canonicalization` when a different scheme is used. `audit.integrity.algorithm` MUST be set on the emitting Resource whenever this attribute is present.
 
-**[30] `audit.schema.version`:** Follows semantic versioning (MAJOR.MINOR.PATCH). Receivers MAY use this value to select an appropriate validation schema.
+**[30] `audit.schema.version`:** Follows semantic versioning (MAJOR.MINOR.PATCH). Receivers MAY use this value to select the matching validation schema for the record's attribute vocabulary.
 
 **[31] `audit.target.name`:** Informational only. Use `audit.target.id` for stable identity correlation.
 
