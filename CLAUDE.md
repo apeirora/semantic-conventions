@@ -52,22 +52,22 @@ make fix && make generate-gh-issue-templates && make check
 
 ## GHA jobs and their local equivalents
 
-| GHA job | Local command | Fails when… |
-|---|---|---|
-| `markdownlint` | `make markdownlint` | Markdown style violations |
-| `yamllint` | `make yamllint` | YAML style violations |
-| `misspell` | `make misspell` | Spelling errors in `.md` files |
-| `markdown-toc-check` | `make markdown-toc-check` | `<!-- START doctoc -->` sections out of date |
-| `link-check` | `make markdown-link-check-local-only` | Broken links |
-| `semantic-conventions` | `make table-check` | Semconv tables in `docs/` differ from what Weaver would generate from `model/` |
-| `semantic-conventions-registry` | `make registry-generation && git diff --exit-code './docs/registry/*.md'` | `docs/registry/attributes/*.md` out of date |
-| `areas-dropdown-check` | `make generate-gh-issue-templates && git diff --exit-code '.github/ISSUE_TEMPLATE'` | Area dropdowns in issue templates out of date |
-| `schemas-check` | `make schema-check` | Schema files invalid |
-| `policies-check` | `make check-policies` | Weaver OPA policy violations |
-| `polices-test` | `make test-policies` | OPA policy unit tests fail |
-| `dead-yaml-check` | `make check-dead-yaml` | YAML signal groups defined but not referenced in any `.md` |
-| `areas-table-check` | `make areas-table-check` | `AREAS.md` table out of date |
-| `changelog` | `make chlog-validate` | No `.chloggen/*.yaml` added, or entry invalid |
+| GHA job                         | Local command                                                                       | Fails when…                                                                    |
+|---------------------------------|-------------------------------------------------------------------------------------|--------------------------------------------------------------------------------|
+| `markdownlint`                  | `make markdownlint`                                                                 | Markdown style violations                                                      |
+| `yamllint`                      | `make yamllint`                                                                     | YAML style violations                                                          |
+| `misspell`                      | `make misspell`                                                                     | Spelling errors in `.md` files                                                 |
+| `markdown-toc-check`            | `make markdown-toc-check`                                                           | `<!-- START doctoc -->` sections out of date                                   |
+| `link-check`                    | `make markdown-link-check-local-only`                                               | Broken links                                                                   |
+| `semantic-conventions`          | `make table-check`                                                                  | Semconv tables in `docs/` differ from what Weaver would generate from `model/` |
+| `semantic-conventions-registry` | `make registry-generation && git diff --exit-code './docs/registry/*.md'`           | `docs/registry/attributes/*.md` out of date                                    |
+| `areas-dropdown-check`          | `make generate-gh-issue-templates && git diff --exit-code '.github/ISSUE_TEMPLATE'` | Area dropdowns in issue templates out of date                                  |
+| `schemas-check`                 | `make schema-check`                                                                 | Schema files invalid                                                           |
+| `policies-check`                | `make check-policies`                                                               | Weaver OPA policy violations                                                   |
+| `polices-test`                  | `make test-policies`                                                                | OPA policy unit tests fail                                                     |
+| `dead-yaml-check`               | `make check-dead-yaml`                                                              | YAML signal groups defined but not referenced in any `.md`                     |
+| `areas-table-check`             | `make areas-table-check`                                                            | `AREAS.md` table out of date                                                   |
+| `changelog`                     | `make chlog-validate`                                                               | No `.chloggen/*.yaml` added, or entry invalid                                  |
 
 ## Adding a new semantic convention area
 
@@ -76,8 +76,8 @@ When a new `model/<area>/` directory is created, these files are affected automa
 1. `docs/<area>/*.md` — written/updated by `make table-generation`
 2. `docs/registry/attributes/<area>.md` — **fully overwritten** by `make registry-generation`; never create or edit manually
 3. `docs/registry/attributes/README.md` — **fully overwritten** by `make registry-generation`; lists all namespaces alphabetically; must be committed together with the new `<area>.md`
-3. `.github/ISSUE_TEMPLATE/*.yaml` — updated by `make generate-gh-issue-templates`
-4. `.chloggen/<branch-or-area>.yaml` — must be created manually (see below)
+4. `.github/ISSUE_TEMPLATE/*.yaml` — updated by `make generate-gh-issue-templates`
+5. `.chloggen/<branch-or-area>.yaml` — must be created manually (see below)
 
 ## Changelog entry (required for every non-chore PR)
 
@@ -88,6 +88,7 @@ make chlog-new    # creates .chloggen/<current-branch>.yaml from TEMPLATE
 ```
 
 Fields:
+
 - `change_type`: one of `breaking`, `deprecation`, `new_component`, `enhancement`, `bug_fix`
 - `component`: the `model/` area name (e.g. `audit`, `http`, `db`)
 - `note`: one-line description
