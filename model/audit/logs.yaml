@@ -23,7 +23,11 @@ groups:
       * `EventName` (MUST) — e.g. `audit.user.login`, `audit.config.change`.
       * `Body` (MAY) — free-form human-readable description; MUST NOT duplicate
         mandatory attributes.
-      * `SeverityNumber` (SHOULD NOT) — not meaningful for audit records.
+      * `SeverityNumber` (SHOULD NOT) — audit records are compliance evidence, not
+        operational diagnostics. Severity implies triage priority, which has no
+        meaning for records that MUST all be delivered regardless of their outcome.
+        Receivers MUST NOT use `SeverityNumber` to filter or prioritize audit records.
+        Use `audit.outcome` to distinguish success from failure.
       * `InstrumentationScope` (MUST be left empty).
     attributes:
       # --- mandatory ---
