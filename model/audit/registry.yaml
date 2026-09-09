@@ -299,7 +299,7 @@ groups:
           same resource and therefore belong on the Resource, not on individual records.
 
           Acceptable forms (in order of preference): a Key ID / `kid` (JOSE header
-          parameter), a DER-encoded X.509 certificate Base64url-encoded, an X.509
+          parameter), a DER-encoded X.509 certificate Base64-encoded, an X.509
           certificate fingerprint (SHA-256 hex), or an Issuer + Serial Number pair.
           Receivers MUST NOT use this field alone for trust decisions; key
           validation MUST be performed out-of-band.
