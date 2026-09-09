@@ -102,17 +102,17 @@ groups:
         requirement_level:
           recommended: >
             When the emitting service maintains a monotonic per-stream counter.
-            Required when `audit.sequence.prev_hash` is present.
-      - ref: audit.sequence.prev_hash
+            Required when `audit.sequence.previous_hash` is present.
+      - ref: audit.sequence.previous_hash
         requirement_level:
           recommended: >
             When the emitting service implements a hash chain for tamper
             detection. Requires `audit.sequence.number` to be present.
             MUST be omitted on the genesis record of a stream.
-      - ref: audit.sequence.prev_record_id
+      - ref: audit.sequence.previous_record_id
         requirement_level:
           recommended: >
-            When `audit.sequence.prev_hash` is present. Provides a resolvable
+            When `audit.sequence.previous_hash` is present. Provides a resolvable
             locator for the predecessor record across storage boundaries.
             MUST be omitted on the genesis record of a stream.
       - ref: audit.sequence.end
