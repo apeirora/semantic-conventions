@@ -46,7 +46,7 @@ Attributes that identify the principal (human user, service, or automated system
 | <a id="audit-actor-name" href="#audit-actor-name">`audit.actor.name`</a> | ![Development](https://img.shields.io/badge/-development-blue) | string | A human-readable display name or username of the actor. [3] | `alice`; `alice@example.com`; `Alice Smith` |
 | <a id="audit-actor-type" href="#audit-actor-type">`audit.actor.type`</a> | ![Development](https://img.shields.io/badge/-development-blue) | string | The category of principal that performed the action. | `user`; `service`; `system` |
 
-**[2] `audit.actor.id`:** This SHOULD be an opaque, durable identifier (e.g. a user-UUID, service account name, or IAM principal ARN) that remains stable across sessions. Avoid using mutable display names or email addresses as the primary id.
+**[2] `audit.actor.id`:** This SHOULD be an opaque, durable identifier (e.g. a user-UUID, service account name, or IAM principal ARN) that remains stable across sessions. Avoid using mutable display names or email addresses as the primary ID.
 
 **[3] `audit.actor.name`:** MAY be a login name, email address, or display name. This value is informational only; use `audit.actor.id` for stable identity correlation.
 
@@ -72,7 +72,7 @@ Attributes that provide cryptographic evidence that the audit record has not bee
 | <a id="audit-integrity-canonicalization" href="#audit-integrity-canonicalization">`audit.integrity.canonicalization`</a> | ![Development](https://img.shields.io/badge/-development-blue) | string | The canonicalization scheme applied to the record before signing or MACing. [5] | `jcs` |
 | <a id="audit-integrity-certificate" href="#audit-integrity-certificate">`audit.integrity.certificate`</a> | ![Development](https://img.shields.io/badge/-development-blue) | string | A reference to the key or certificate used for `audit.integrity.value`. [6] | `key-2024-01`; `SHA256:ab12cd34...` |
 | <a id="audit-integrity-signer" href="#audit-integrity-signer">`audit.integrity.signer`</a> | ![Development](https://img.shields.io/badge/-development-blue) | string | Identifies which tier produced the integrity proof in `audit.integrity.value`. [7] | `producer`; `collector` |
-| <a id="audit-integrity-value" href="#audit-integrity-value">`audit.integrity.value`</a> | ![Development](https://img.shields.io/badge/-development-blue) | string | Base64-encoded cryptographic signature or MAC covering this record. [8] | `SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c` |
+| <a id="audit-integrity-value" href="#audit-integrity-value">`audit.integrity.value`</a> | ![Development](https://img.shields.io/badge/-development-blue) | string | base64-encoded cryptographic signature or MAC covering this record. [8] | `SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c` |
 
 **[4] `audit.integrity.algorithm`:** MUST be set as a Resource attribute whenever `audit.integrity.value` is present on any record emitted by this resource. Use a JWA identifier (RFC 7518) for asymmetric signatures (e.g. `ES256`, `RS256`, `EdDSA`) or an IANA MAC Algorithm identifier for symmetric MACs (e.g. `HMAC-SHA256`).
 
@@ -133,9 +133,9 @@ Attributes that describe the network origin or calling context of the action.
 | Key | Stability | Value Type | Description | Example Values |
 | --- | --- | --- | --- | --- |
 | <a id="audit-source-id" href="#audit-source-id">`audit.source.id`</a> | ![Development](https://img.shields.io/badge/-development-blue) | string | A stable identifier for the source system or network endpoint that originated the action. [16] | `192.0.2.42`; `device-uuid-abcd1234` |
-| <a id="audit-source-type" href="#audit-source-type">`audit.source.type`</a> | ![Development](https://img.shields.io/badge/-development-blue) | string | The category of origin that initiated the action. [17] | `ipv4`; `ipv6`; `hostname` |
+| <a id="audit-source-type" href="#audit-source-type">`audit.source.type`</a> | ![Development](https://img.shields.io/badge/-development-blue) | string | The category of origin that initiated the action. [17] | `IPv4`; `IPv6`; `hostname` |
 
-**[16] `audit.source.id`:** MAY be an IP address, a device UUID, or a service mesh endpoint id. Prefer stable identifiers (device UUID) over ephemeral ones (IP address) when both are available.
+**[16] `audit.source.id`:** MAY be an IP address, a device UUID, or a service mesh endpoint ID. Prefer stable identifiers (device UUID) over ephemeral ones (IP address) when both are available.
 
 **[17] `audit.source.type`:** Well-known values: `ipv4`, `ipv6`, `hostname`. Custom values MAY be used.
 
