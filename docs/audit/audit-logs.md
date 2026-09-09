@@ -125,8 +125,8 @@ namespace.
 | [`audit.sequence.end`](/docs/registry/attributes/audit.md) | ![Development](https://img.shields.io/badge/-development-blue) | `Conditionally Required` [10] | boolean | Set to `true` on the last record of a gracefully closed audit stream. [11] | `true` |
 | [`audit.integrity.signer`](/docs/registry/attributes/audit.md) | ![Development](https://img.shields.io/badge/-development-blue) | `Recommended` When `audit.integrity.value` is present. | string | Identifies which tier produced the integrity proof in `audit.integrity.value`. [12] | `producer`; `collector` |
 | [`audit.sequence.number`](/docs/registry/attributes/audit.md) | ![Development](https://img.shields.io/badge/-development-blue) | `Recommended` [13] | int | A monotonically increasing counter assigned to each record within a single audit stream. [14] | `1`; `42`; `1000001` |
-| [`audit.sequence.prev_hash`](/docs/registry/attributes/audit.md) | ![Development](https://img.shields.io/badge/-development-blue) | `Recommended` [15] | string | SHA-256 hex digest of the `IntegrityHash` field of the immediately preceding record in the same audit stream. [16] | `a3f1c2e4b5d6a7f8e9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2` |
-| [`audit.sequence.prev_record_id`](/docs/registry/attributes/audit.md) | ![Development](https://img.shields.io/badge/-development-blue) | `Recommended` [17] | string | The `audit.record.id` of the immediately preceding record in the same audit stream. [18] | `3fa85f64-5717-4562-b3fc-2c963f66afa6` |
+| [`audit.sequence.previous_hash`](/docs/registry/attributes/audit.md) | ![Development](https://img.shields.io/badge/-development-blue) | `Recommended` [15] | string | SHA-256 hex digest of the `IntegrityHash` field of the immediately preceding record in the same audit stream. [16] | `a3f1c2e4b5d6a7f8e9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2` |
+| [`audit.sequence.previous_record_id`](/docs/registry/attributes/audit.md) | ![Development](https://img.shields.io/badge/-development-blue) | `Recommended` [17] | string | The `audit.record.id` of the immediately preceding record in the same audit stream. [18] | `3fa85f64-5717-4562-b3fc-2c963f66afa6` |
 | [`audit.sequence.stream_id`](/docs/registry/attributes/audit.md) | ![Development](https://img.shields.io/badge/-development-blue) | `Recommended` [19] | string | An opaque identifier that scopes the hash chain to a single audit stream. [20] | `7c9e6679-7425-40de-944b-e07fc1f90ae7` |
 | [`audit.source.id`](/docs/registry/attributes/audit.md) | ![Development](https://img.shields.io/badge/-development-blue) | `Recommended` [21] | string | A stable identifier for the source system or network endpoint that originated the action. [22] | `192.0.2.42`; `device-uuid-abcd1234` |
 | [`audit.source.type`](/docs/registry/attributes/audit.md) | ![Development](https://img.shields.io/badge/-development-blue) | `Recommended` When `audit.source.id` is present. | string | The category of origin that initiated the action. [23] | `IPv4`; `IPv6`; `hostname` |
@@ -162,17 +162,17 @@ Acceptable forms (in order of preference): a Key ID / `kid` (JOSE header paramet
 
 **[12] `audit.integrity.signer`:** `producer` means the SDK computed the value before export. `collector` means a Tier-2 Collector signed or re-signed the record after receiving it. When absent, `producer` SHOULD be assumed.
 
-**[13] `audit.sequence.number`:** When the emitting service maintains a monotonic per-stream counter. Required when `audit.sequence.prev_hash` is present.
+**[13] `audit.sequence.number`:** When the emitting service maintains a monotonic per-stream counter. Required when `audit.sequence.previous_hash` is present.
 
 **[14] `audit.sequence.number`:** Compliant sinks and Tier-2 Collectors MUST verify that consecutive records within the same stream have strictly increasing sequence numbers. Gaps MUST trigger a gap-detection warning and a security event log entry. The counter SHOULD start at 1 and increment by 1 per emitted record, but implementations MAY use a larger step if records can be emitted concurrently from multiple threads.
 
-**[15] `audit.sequence.prev_hash`:** When the emitting service implements a hash chain for tamper detection. Requires `audit.sequence.number` to be present. MUST be omitted on the genesis record of a stream.
+**[15] `audit.sequence.previous_hash`:** When the emitting service implements a hash chain for tamper detection. Requires `audit.sequence.number` to be present. MUST be omitted on the genesis record of a stream.
 
-**[16] `audit.sequence.prev_hash`:** Including the previous record's sink-acknowledged hash in the current record creates an append-only hash chain. Any retroactive modification of a record is detectable by re-verifying the chain. MUST be omitted on the genesis (first) record of a stream — absence is the normative signal; no magic sentinel constant is required.
+**[16] `audit.sequence.previous_hash`:** Including the previous record's sink-acknowledged hash in the current record creates an append-only hash chain. Any retroactive modification of a record is detectable by re-verifying the chain. MUST be omitted on the genesis (first) record of a stream — absence is the normative signal; no magic sentinel constant is required.
 
-**[17] `audit.sequence.prev_record_id`:** When `audit.sequence.prev_hash` is present. Provides a resolvable locator for the predecessor record across storage boundaries. MUST be omitted on the genesis record of a stream.
+**[17] `audit.sequence.previous_record_id`:** When `audit.sequence.previous_hash` is present. Provides a resolvable locator for the predecessor record across storage boundaries. MUST be omitted on the genesis record of a stream.
 
-**[18] `audit.sequence.prev_record_id`:** Provides a resolvable locator for the predecessor across shards, storage systems, and retention boundaries, complementing `audit.sequence.prev_hash`. MUST be omitted on the genesis (first) record of a stream.
+**[18] `audit.sequence.previous_record_id`:** Provides a resolvable locator for the predecessor across shards, storage systems, and retention boundaries, complementing `audit.sequence.previous_hash`. MUST be omitted on the genesis (first) record of a stream.
 
 **[19] `audit.sequence.stream_id`:** When the emitting service uses hash-chain ordering. Scopes the chain to a single `AuditLogger` instance.
 
@@ -301,17 +301,17 @@ to allow the sink to verify without possessing the signing key.
 
 ### Hash-chain ordering
 
-`audit.sequence.number` and `audit.sequence.prev_hash` together form an append-only
+`audit.sequence.number` and `audit.sequence.previous_hash` together form an append-only
 hash chain:
 
 ```
-Record N:  sequence.number=N,  sequence.prev_hash=IntegrityHash(Record N-1)
-Record N+1: sequence.number=N+1, sequence.prev_hash=IntegrityHash(Record N)
+Record N:  sequence.number=N,  sequence.previous_hash=IntegrityHash(Record N-1)
+Record N+1: sequence.number=N+1, sequence.previous_hash=IntegrityHash(Record N)
 ```
 
-Any retroactive modification of Record N causes the `audit.sequence.prev_hash` of Record N+1
+Any retroactive modification of Record N causes the `audit.sequence.previous_hash` of Record N+1
 to become invalid, making the tampering detectable without re-signing.
-Set `audit.sequence.prev_hash` to the all-zeros string for the very first record.
+The genesis (first) record of a stream MUST omit `audit.sequence.previous_hash` — absence is the normative signal.
 
 ## AuditReceipt
 
@@ -356,7 +356,7 @@ The following invariants MUST be respected by every SDK implementation:
 | ISO 27001 A.8.17 — Clock sync | SDK warns when `\|Timestamp − ObservedTimestamp\|` > 5 s. |
 | SOC 2 CC7.2 — Anomaly detection | `audit.records.dropped` metric + operational alert. |
 | PCI-DSS Req. 10.2 — Audit trails | Mandatory attributes cover all required fields; `audit.source.id` for IP. |
-| PCI-DSS Req. 10.5 — Log protection | `audit.integrity.value` + `audit.sequence.prev_hash` hash chain. |
+| PCI-DSS Req. 10.5 — Log protection | `audit.integrity.value` + `audit.sequence.previous_hash` hash chain. |
 | HIPAA § 164.312(b) — Audit controls | `audit.actor.*` + `audit.target.*` cover ePHI access logging. |
 
 ## Examples
@@ -405,7 +405,7 @@ The following invariants MUST be respected by every SDK implementation:
     "audit.source.id":        "device-uuid-abcd1234",
     "audit.source.type":      "device",
     "audit.sequence.number":  42,
-    "audit.sequence.prev_hash":        "a3f1c2e4b5d6a7f8e9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2",
+    "audit.sequence.previous_hash":        "a3f1c2e4b5d6a7f8e9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2",
     "audit.integrity.value":  "SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c",
     "audit.schema.version":   "1.0.0"
   }
