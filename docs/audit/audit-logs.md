@@ -154,7 +154,7 @@ namespace.
 **[8] `audit.integrity.certificate`:** Required (as a Resource attribute, together with `audit.integrity.algorithm`) when `audit.integrity.value` is present on any record emitted from this resource.
 
 **[9] `audit.integrity.certificate`:** MUST be set as a Resource attribute (together with `audit.integrity.algorithm`) whenever `audit.integrity.value` is present on any record emitted by this resource. Because a service instance uses a single signing key for its entire lifetime, both `audit.integrity.algorithm` and `audit.integrity.certificate` are constant across all records from the same resource and therefore belong on the Resource, not on individual records.
-Acceptable forms (in order of preference): a Key ID / `kid` (JOSE header parameter), a DER-encoded X.509 certificate Base64url-encoded, an X.509 certificate fingerprint (SHA-256 hex), or an Issuer + Serial Number pair. Receivers MUST NOT use this field alone for trust decisions; key validation MUST be performed out-of-band.
+Acceptable forms (in order of preference): a Key ID / `kid` (JOSE header parameter), a DER-encoded X.509 certificate Base64-encoded, an X.509 certificate fingerprint (SHA-256 hex), or an Issuer + Serial Number pair. Receivers MUST NOT use this field alone for trust decisions; key validation MUST be performed out-of-band.
 
 **[10] `audit.sequence.end`:** Required on the final record of a gracefully closed stream (emitted during `ForceFlush` or `Shutdown`). Omit on all other records.
 
@@ -288,7 +288,7 @@ was not altered in transit.
   **Resource attributes**. A service instance uses a single signing key for
   its entire lifetime, so both values are constant across all records emitted
   by the same resource. They MUST NOT be placed on individual records.
-- `audit.integrity.value` is the per-record Base64url-encoded signature/MAC
+- `audit.integrity.value` is the per-record Base64-encoded signature/MAC
   over the canonical serialization of the record (with `audit.integrity.value`
   itself absent from the input).
 - On acknowledgement, the sink returns an `AuditReceipt` containing an
