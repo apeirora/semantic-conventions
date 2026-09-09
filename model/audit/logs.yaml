@@ -68,6 +68,14 @@ groups:
       # --- integrity (tamper-evidence) ---
       - ref: audit.integrity.value
         requirement_level: opt_in
+      - ref: audit.integrity.signer
+        requirement_level:
+          recommended: When `audit.integrity.value` is present.
+      - ref: audit.integrity.canonicalization
+        requirement_level:
+          conditionally_required: >
+            Required when a canonicalization scheme other than `jcs` (RFC 8785)
+            is used. Omit when `jcs` is used.
       - ref: audit.integrity.algorithm
         requirement_level:
           conditionally_required: >
@@ -81,6 +89,11 @@ groups:
             on any record emitted from this resource.
 
       # --- hash-chain ordering ---
+      - ref: audit.sequence.stream_id
+        requirement_level:
+          recommended: >
+            When the emitting service uses hash-chain ordering. Scopes the chain
+            to a single `AuditLogger` instance.
       - ref: audit.sequence.number
         requirement_level:
           recommended: >
@@ -91,6 +104,18 @@ groups:
           recommended: >
             When the emitting service implements a hash chain for tamper
             detection. Requires `audit.sequence.number` to be present.
+            MUST be omitted on the genesis record of a stream.
+      - ref: audit.sequence.prev_record_id
+        requirement_level:
+          recommended: >
+            When `audit.sequence.prev_hash` is present. Provides a resolvable
+            locator for the predecessor record across storage boundaries.
+            MUST be omitted on the genesis record of a stream.
+      - ref: audit.sequence.end
+        requirement_level:
+          conditionally_required: >
+            Required on the final record of a gracefully closed stream
+            (emitted during `ForceFlush` or `Shutdown`). Omit on all other records.
 
       # --- schema versioning ---
       - ref: audit.schema.version
