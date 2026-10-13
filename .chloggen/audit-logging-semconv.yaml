@@ -1,0 +1,17 @@
+change_type: new_component
+
+component: audit
+
+note: Add `audit.*` semantic conventions for the OpenTelemetry Audit Logging signal (OTEP 0267).
+
+issues: [7]
+
+subtext: |
+  Introduces a dedicated `audit.*` attribute namespace for compliance-critical,
+  lossless audit logging (ISO 27001, SOC 2, PCI-DSS, HIPAA). Attribute groups
+  cover actor identity (`audit.actor.*`), action and outcome (`audit.action`,
+  `audit.outcome`), target resource (`audit.target.*`), network source
+  (`audit.source.*`), per-record cryptographic integrity (`audit.integrity.value`),
+  and resource-level signing metadata (`audit.integrity.algorithm`,
+  `audit.integrity.certificate`). An append-only hash-chain is supported via
+  `audit.sequence.number` and `audit.prev.hash`.
