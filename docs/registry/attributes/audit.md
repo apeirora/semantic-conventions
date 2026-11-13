@@ -20,11 +20,13 @@ Attributes that describe the operation performed by the actor.
 | Key | Stability | Value Type | Description | Example Values |
 | --- | --- | --- | --- | --- |
 | <a id="audit-action" href="#audit-action">`audit.action`</a> | ![Development](https://img.shields.io/badge/-development-blue) | string | The auditable operation that was performed. [1] | `LOGIN`; `DELETE`; `GRANT`; `CONFIG_CHANGE` |
-| <a id="audit-outcome" href="#audit-outcome">`audit.outcome`</a> | ![Development](https://img.shields.io/badge/-development-blue) | string | The result of the auditable action. | `success`; `failure`; `unknown` |
+| <a id="audit-outcome" href="#audit-outcome">`audit.outcome`</a> | ![Development](https://img.shields.io/badge/-development-blue) | string | The result of the auditable action. | `success`; `failure`; `unknown` [(see more)](#audit-outcome-values) |
 
 **[1] `audit.action`:** SHOULD be an uppercase verb from a controlled vocabulary where possible. Well-known values include `LOGIN`, `LOGOUT`, `READ`, `CREATE`, `UPDATE`, `DELETE`, `GRANT`, `REVOKE`, `EXPORT`, `IMPORT`, `EXECUTE`, `APPROVE`, `REJECT`. Custom values MAY be used when none of the well-known values applies, but SHOULD be documented in the producing service's changelog.
 
 ---
+
+<a id="audit-outcome-values"></a>
 
 `audit.outcome` has the following list of well-known values. If one of them applies, then the respective value MUST be used; otherwise, a custom value MAY be used.
 
@@ -44,13 +46,15 @@ Attributes that identify the principal (human user, service, or automated system
 | --- | --- | --- | --- | --- |
 | <a id="audit-actor-id" href="#audit-actor-id">`audit.actor.id`</a> | ![Development](https://img.shields.io/badge/-development-blue) | string | The stable identifier of the actor that performed the action. [2] | `u8472`; `svc-deployer`; `arn:aws:iam::123456789012:role/DeployRole` |
 | <a id="audit-actor-name" href="#audit-actor-name">`audit.actor.name`</a> | ![Development](https://img.shields.io/badge/-development-blue) | string | A human-readable display name or username of the actor. [3] | `alice`; `alice@example.com`; `Alice Smith` |
-| <a id="audit-actor-type" href="#audit-actor-type">`audit.actor.type`</a> | ![Development](https://img.shields.io/badge/-development-blue) | string | The category of principal that performed the action. | `user`; `service`; `system` |
+| <a id="audit-actor-type" href="#audit-actor-type">`audit.actor.type`</a> | ![Development](https://img.shields.io/badge/-development-blue) | string | The category of principal that performed the action. | `user`; `service`; `system` [(see more)](#audit-actor-type-values) |
 
 **[2] `audit.actor.id`:** This SHOULD be an opaque, durable identifier (e.g. a user-UUID, service account name, or IAM principal ARN) that remains stable across sessions. Avoid using mutable display names or email addresses as the primary ID.
 
 **[3] `audit.actor.name`:** MAY be a login name, email address, or display name. This value is informational only; use `audit.actor.id` for stable identity correlation.
 
 ---
+
+<a id="audit-actor-type-values"></a>
 
 `audit.actor.type` has the following list of well-known values. If one of them applies, then the respective value MUST be used; otherwise, a custom value MAY be used.
 
