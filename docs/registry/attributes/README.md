@@ -35,6 +35,7 @@ Currently, the following namespaces exist:
 - [App](app.md)
 - [Artifact](artifact.md)
 - [Aspnetcore](aspnetcore.md)
+- [Audit](audit.md)
 - [AWS](aws.md)
 - [Azure](azure.md)
 - [Browser](browser.md)
